@@ -6,7 +6,7 @@ const cors = require('cors');
 require('dotenv').config();
 app.use(cors());
 
-app.get('/', (req, res) => {
+app.get('/home', (req, res) => {
     const options = {
         method: 'GET',
         url: 'https://themealdb.p.rapidapi.com/randomselection.php',
@@ -18,6 +18,7 @@ app.get('/', (req, res) => {
       
       axios.request(options).then(function (response) {
           console.log(response.data);
+          res.json(response.data);
       }).catch(function (error) {
           console.error(error);
       });
