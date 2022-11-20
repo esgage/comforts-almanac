@@ -4,9 +4,7 @@ const getHomeResults = () => {
     fetch('http://localhost:8000/home')
         .then(response => response.json())
         .then(home => {
-            const myJSON = JSON.stringify(home);
-            //console.log('home stringified: ' + myJSON);
-            //console.log('home object ' + home.meals[0].idMeal);
+            //const myJSON = JSON.stringify(home);
             populateHome(home);
             
         })
@@ -20,12 +18,27 @@ const populateHome = (home) => {
         const thumbnail = document.createElement('img');
         const itemLink = document.createElement('a');
         const itemTitle = document.createElement('h2');
-        itemLink.href = '#DONTFORGETTOADDMELATER';
+        itemLink.classList.add('itemLink');
+        itemLink.href = '';
+        itemLink.setAttribute('onclick', 'fetchRecipe(' + meal.idMeal + '); return false;');
         thumbnail.src = meal.strMealThumb;
         itemTitle.textContent = meal.strMeal;
         itemLink.append(thumbnail);
         itemLink.append(itemTitle);
-        console.log(meal.strMeal);
         wrapper.append(itemLink);
     }
 }
+
+const fetchRecipe = (mealId) => {
+    fetch('http://localhost:8000/recipe/' + mealId)
+        .then(response => response.json())
+        .then(recipe => {
+            console.log("recipe: " + recipe);
+
+        })
+        .catch(err => console.log(err));
+}
+
+ const loadRecipe = (recipe) => {
+    
+ }

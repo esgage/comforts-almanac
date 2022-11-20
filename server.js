@@ -24,4 +24,24 @@ app.get('/home', (req, res) => {
       });
 });
 
+app.get('/recipe/:id', (req, res) => {
+  const id = req.params.id;
+    const options = {
+      method: 'GET',
+      url: 'https://themealdb.p.rapidapi.com/lookup.php',
+      params: {i: id},
+      headers: {
+        'X-RapidAPI-Key': process.env.RAPID_API_KEY,
+        'X-RapidAPI-Host': 'themealdb.p.rapidapi.com'
+      }
+    };
+    
+    axios.request(options).then(function (response) {
+      console.log(response.data);
+      res.json(response.data);
+    }).catch(function (error) {
+      console.error(error);
+    });
+});
+
 app.listen(PORT, () => console.log('running on PORT ' + PORT));

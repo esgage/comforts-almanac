@@ -1,0 +1,18 @@
+#wrapper{
+    max-width: 1000px;
+}
+
+.itemLink{
+    width: 200px;
+    height: 320px;
+    background-color: rgb(240,240,240);
+    display: block;
+    float: left;
+    text-align: center;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.itemLink img{
+    max-width: 250px;
+}
