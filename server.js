@@ -17,11 +17,28 @@ app.get('/home', (req, res) => {
       };
       
       axios.request(options).then(function (response) {
-          console.log(response.data);
           res.json(response.data);
       }).catch(function (error) {
           console.error(error);
       });
+});
+
+app.get('/mealCategories', (req, res) =>{
+  const options = {
+    method: 'GET',
+    url: 'https://themealdb.p.rapidapi.com/categories.php',
+    headers: {
+      'X-RapidAPI-Key': process.env.RAPID_API_KEY,
+      'X-RapidAPI-Host': 'themealdb.p.rapidapi.com'
+    }
+  };
+
+  axios.request(options).then(function (response) {
+    console.log(response.data);
+    res.json(response.data);
+  }).catch(function (error) {
+    console.error(error);
+  });
 });
 
 app.get('/recipe/:id', (req, res) => {
@@ -37,7 +54,6 @@ app.get('/recipe/:id', (req, res) => {
     };
     
     axios.request(options).then(function (response) {
-      console.log(response.data);
       res.json(response.data);
     }).catch(function (error) {
       console.error(error);

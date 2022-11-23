@@ -1,31 +1,51 @@
 const wrapper = document.getElementById('wrapper');
 
-const getHomeResults = () => {
+const getHomeContent = () => {
+    clearPage();
     fetch('http://localhost:8000/home')
         .then(response => response.json())
         .then(home => {
             //const myJSON = JSON.stringify(home);
-            populateHome(home);
-            
+            for(const meal of home.meals){
+                const thumbnail = document.createElement('img');
+                const itemLink = document.createElement('a');
+                const itemTitle = document.createElement('h2');
+                itemLink.classList.add('itemLink');
+                itemLink.href = '';
+                itemLink.setAttribute('onclick', 'getRecipe(' + meal.idMeal + '); return false;');
+                thumbnail.src = meal.strMealThumb;
+                itemTitle.textContent = meal.strMeal;
+                itemLink.append(thumbnail);
+                itemLink.append(itemTitle);
+                wrapper.append(itemLink);
+            }
         })
         .catch(err => console.log(err));
+
+    fetch('http://localhost:8000/mealCategories')
+        .then(response => response.json())
+        .then(mealCategoryList =>{
+            console.log('catergories = ' + mealCategoryList.categories);
+            const categoriesDiv = document.createElement('div');
+            for(const category of mealCategoryList.categories){
+                const thumbnail = document.createElement('img');
+                const itemLink = document.createElement('a');
+                const itemTitle = document.createElement('h2');
+                thumbnail.src = category.strCategoryThumb;
+                itemTitle.textContent = category.strCategory;
+                itemLink.classList.add('itemLink');
+                itemLink.append(thumbnail);
+                itemLink.append(itemTitle);
+                categoriesDiv.append(itemLink);
+                console.log(category.strCategory + ' - ' + category.strCategoryDescription);
+            }
+            wrapper.append(categoriesDiv);
+        })
+        .catch(err => console.log(err));
+
 }
 
-const populateHome = (home) => {
-    clearPage();
-    for(const meal of home.meals){
-        const thumbnail = document.createElement('img');
-        const itemLink = document.createElement('a');
-        const itemTitle = document.createElement('h2');
-        itemLink.classList.add('itemLink');
-        itemLink.href = '';
-        itemLink.setAttribute('onclick', 'getRecipe(' + meal.idMeal + '); return false;');
-        thumbnail.src = meal.strMealThumb;
-        itemTitle.textContent = meal.strMeal;
-        itemLink.append(thumbnail);
-        itemLink.append(itemTitle);
-        wrapper.append(itemLink);
-    }
+const getMealCategories = () => {
 }
 
 const getRecipe = (mealId) => {
@@ -79,6 +99,6 @@ const getRecipe = (mealId) => {
     wrapper.innerHTML = '';
  }
  
-document.getElementById('homeAnchor').setAttribute('onclick', 'getHomeResults(); return false;');
+document.getElementById('homeAnchor').setAttribute('onclick', 'getHomeContent(); return false;');
 
- getHomeResults();
+getHomeContent();
