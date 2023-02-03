@@ -1,11 +1,25 @@
 const wrapper = document.getElementById('wrapper');
+const searchInput = document.getElementById('search');
+
+const debounce = (func, delay) => {
+    let timeoutId;
+    return (...args) => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        func(...args);
+      }, delay);
+    };
+  };
 
 const getHomeContent = () => {
     clearPage();
+    const categoriesDiv = document.createElement('div');
+    const tenRandomDiv = document.createElement('div');
+    wrapper.append(categoriesDiv);
+    wrapper.append(tenRandomDiv);
     fetch('http://localhost:8000/home')
         .then(response => response.json())
         .then(home => {
-            //const myJSON = JSON.stringify(home);
             for(const meal of home.meals){
                 const thumbnail = document.createElement('img');
                 const itemLink = document.createElement('a');
@@ -17,7 +31,7 @@ const getHomeContent = () => {
                 itemTitle.textContent = meal.strMeal;
                 itemLink.append(thumbnail);
                 itemLink.append(itemTitle);
-                wrapper.append(itemLink);
+                tenRandomDiv.append(itemLink);
             }
         })
         .catch(err => console.log(err));
@@ -25,8 +39,6 @@ const getHomeContent = () => {
     fetch('http://localhost:8000/mealCategories')
         .then(response => response.json())
         .then(mealCategoryList =>{
-            console.log('catergories = ' + mealCategoryList.categories);
-            const categoriesDiv = document.createElement('div');
             for(const category of mealCategoryList.categories){
                 const thumbnail = document.createElement('img');
                 const itemLink = document.createElement('a');
@@ -37,22 +49,20 @@ const getHomeContent = () => {
                 itemLink.append(thumbnail);
                 itemLink.append(itemTitle);
                 categoriesDiv.append(itemLink);
-                console.log(category.strCategory + ' - ' + category.strCategoryDescription);
             }
-            wrapper.append(categoriesDiv);
         })
         .catch(err => console.log(err));
-
 }
 
-const getMealCategories = () => {
-}
+search.addEventListener('input', debounce(() => {
+    const query = search.value;
+    console.log(query);
+}, 500));
 
 const getRecipe = (mealId) => {
     fetch('http://localhost:8000/recipe/' + mealId)
         .then(response => response.json())
         .then(recipe => {
-            console.log("recipe: " + recipe);
             loadRecipe(recipe);
 
         })
