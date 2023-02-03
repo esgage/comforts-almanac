@@ -1,5 +1,6 @@
 const wrapper = document.getElementById('wrapper');
 const searchInput = document.getElementById('search');
+const autocompleteList = document.getElementById('autocomplete');
 
 const debounce = (func, delay) => {
     let timeoutId;
@@ -57,7 +58,25 @@ const getHomeContent = () => {
 search.addEventListener('input', debounce(() => {
     const query = search.value;
     console.log(query);
-}, 500));
+    autocompleteList.innerHTML = "";
+    fetch('http://localhost:8000/search/' + query)
+        .then(response => response.json())
+        .then(autocompleteResults =>{
+            let i = 0;
+            for(const meal of autocompleteResults.meals){
+                if (i >= 10) return;
+                console.log(meal.strMeal);
+                const acLink = document.createElement('a');
+                acLink.classList.add('acLink');
+                acLink.href = '';
+                acLink.setAttribute('onclick', 'getRecipe(' + meal.idMeal + '); return false;');
+                acLink.textContent = meal.strMeal;
+                autocompleteList.append(acLink);
+                i++;
+            }
+        })
+        .catch(err => console.log(err));
+}, 200));
 
 const getRecipe = (mealId) => {
     fetch('http://localhost:8000/recipe/' + mealId)
