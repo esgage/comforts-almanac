@@ -46,6 +46,7 @@ const getHomeContent = () => {
                 const itemTitle = document.createElement('h2');
                 thumbnail.src = category.strCategoryThumb;
                 itemTitle.textContent = category.strCategory;
+                itemLink.setAttribute('onclick', 'getCategory("' + category.strCategory + '"); return false;');
                 itemLink.classList.add('itemLink');
                 itemLink.append(thumbnail);
                 itemLink.append(itemTitle);
@@ -60,32 +61,67 @@ search.addEventListener('input', debounce(() => {
     console.log(query);
     autocompleteList.innerHTML = "";
     fetch('http://localhost:8000/search/' + query)
-        .then(response => response.json())
-        .then(autocompleteResults =>{
-            let i = 0;
-            for(const meal of autocompleteResults.meals){
-                if (i >= 10) return;
-                console.log(meal.strMeal);
-                const acLink = document.createElement('a');
-                acLink.classList.add('acLink');
-                acLink.href = '';
-                acLink.setAttribute('onclick', 'getRecipe(' + meal.idMeal + '); return false;');
-                acLink.textContent = meal.strMeal;
-                autocompleteList.append(acLink);
-                i++;
+        .then(response => {
+            if(!response.ok) return;
+            return response.json();
+        })
+        .then(autocompleteResults => {
+            if(autocompleteResults.meals === null){
+                autocompleteList.innerHTML = "No Results";
+                console.log('autocomplete.meals = null');
+            }
+            else{
+                let i = 0;
+                for(const meal of autocompleteResults.meals){
+                    if (i >= 10) return;
+                    console.log(meal.strMeal);
+                    const acLink = document.createElement('a');
+                    acLink.classList.add('acLink');
+                    acLink.href = '';
+                    acLink.setAttribute('onclick', 'getRecipe(' + meal.idMeal + '); return false;');
+                    acLink.textContent = meal.strMeal;
+                    autocompleteList.append(acLink);
+                    i++;
+                }
             }
         })
         .catch(err => console.log(err));
-}, 200));
+}, 300));
 
 const getRecipe = (mealId) => {
     fetch('http://localhost:8000/recipe/' + mealId)
         .then(response => response.json())
         .then(recipe => {
             loadRecipe(recipe);
-
         })
         .catch(err => console.log(err));
+}
+
+const getCategory = (categoryId) => {
+    console.log(categoryId);
+    fetch('http://localhost:8000/category/' + categoryId)
+        .then(response => response.json())
+        .then(category => {
+            loadCategory(category);
+        })
+        .catch(err => console.log(err));
+}
+
+const loadCategory = (category) =>{
+    clearPage();
+    for(const meal of category.meals){
+        const thumbnail = document.createElement('img');
+        const itemLink = document.createElement('a');
+        const itemTitle = document.createElement('h2');
+        itemLink.classList.add('itemLink');
+        itemLink.href = '';
+        itemLink.setAttribute('onclick', 'getRecipe(' + meal.idMeal + '); return false;');
+        thumbnail.src = meal.strMealThumb;
+        itemTitle.textContent = meal.strMeal;
+        itemLink.append(thumbnail);
+        itemLink.append(itemTitle);
+        wrapper.append(itemLink);
+    }
 }
 
  const loadRecipe = (recipe) => {

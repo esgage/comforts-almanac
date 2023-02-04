@@ -15,7 +15,6 @@ app.get('/home', (req, res) => {
           'X-RapidAPI-Host': 'themealdb.p.rapidapi.com'
         }
       };
-      
       axios.request(options).then(function (response) {
           res.json(response.data);
       }).catch(function (error) {
@@ -32,7 +31,6 @@ app.get('/mealCategories', (req, res) =>{
       'X-RapidAPI-Host': 'themealdb.p.rapidapi.com'
     }
   };
-
   axios.request(options).then(function (response) {
     res.json(response.data);
   }).catch(function (error) {
@@ -51,7 +49,25 @@ app.get('/search/:query', (req, res) => {
       'X-RapidAPI-Host': 'themealdb.p.rapidapi.com'
     }
   };
-  
+  axios.request(options).then(function (response) {
+    res.json(response.data);
+    console.log(response.data);
+  }).catch(function (error) {
+    console.error(error);
+  });
+});
+
+app.get('/category/:id', (req, res) =>{
+  const id = req.params.id;
+  const options = {
+    method: 'GET',
+    url: 'https://themealdb.p.rapidapi.com/filter.php',
+    params: {c: id},
+    headers: {
+      'X-RapidAPI-Key': process.env.RAPID_API_KEY,
+      'X-RapidAPI-Host': 'themealdb.p.rapidapi.com'
+    }
+  };
   axios.request(options).then(function (response) {
     res.json(response.data);
     console.log(response.data);
@@ -71,7 +87,6 @@ app.get('/recipe/:id', (req, res) => {
         'X-RapidAPI-Host': 'themealdb.p.rapidapi.com'
       }
     };
-    
     axios.request(options).then(function (response) {
       res.json(response.data);
     }).catch(function (error) {
