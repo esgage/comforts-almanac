@@ -14,25 +14,23 @@ const debounce = (func, delay) => {
 
 const getHomeContent = () => {
     clearPage();
-    const categoriesDiv = document.createElement('div');
-    const tenRandomDiv = document.createElement('div');
-    wrapper.append(categoriesDiv);
-    wrapper.append(tenRandomDiv);
+    const categoriesContainer = document.createElement('div');
+    const tenRandomContainer = document.createElement('div');
+    categoriesContainer.classList.add('categoriesContainer');
+    tenRandomContainer.classList.add('tenRandomContainer');
+    wrapper.append(categoriesContainer);
+    wrapper.append(tenRandomContainer);
     fetch('http://localhost:8000/home')
         .then(response => response.json())
         .then(home => {
             for(const meal of home.meals){
-                const thumbnail = document.createElement('img');
-                const itemLink = document.createElement('a');
-                const itemTitle = document.createElement('h2');
+                const itemLink = document.createElement('div');
                 itemLink.classList.add('itemLink');
-                itemLink.href = '';
-                itemLink.setAttribute('onclick', 'getRecipe(' + meal.idMeal + '); return false;');
-                thumbnail.src = meal.strMealThumb;
-                itemTitle.textContent = meal.strMeal;
-                itemLink.append(thumbnail);
-                itemLink.append(itemTitle);
-                tenRandomDiv.append(itemLink);
+                itemLink.innerHTML = `<img src="${meal.strMealThumb}"><h2>${meal.strMeal}</h2>`;
+                itemLink.addEventListener('click', () => {
+                    getRecipe(meal.idMeal);
+                });
+                tenRandomContainer.append(itemLink);
             }
         })
         .catch(err => console.log(err));
@@ -41,16 +39,13 @@ const getHomeContent = () => {
         .then(response => response.json())
         .then(mealCategoryList =>{
             for(const category of mealCategoryList.categories){
-                const thumbnail = document.createElement('img');
-                const itemLink = document.createElement('a');
-                const itemTitle = document.createElement('h2');
-                thumbnail.src = category.strCategoryThumb;
-                itemTitle.textContent = category.strCategory;
-                itemLink.setAttribute('onclick', 'getCategory("' + category.strCategory + '"); return false;');
+                const itemLink = document.createElement('div');
                 itemLink.classList.add('itemLink');
-                itemLink.append(thumbnail);
-                itemLink.append(itemTitle);
-                categoriesDiv.append(itemLink);
+                itemLink.innerHTML = `<img src="${category.strCategoryThumb}"><h2>${category.strCategory}<h2/>`;
+                itemLink.addEventListener('click', () => {
+                    getCategory(category.strCategory);
+                });
+                categoriesContainer.append(itemLink);
             }
         })
         .catch(err => console.log(err));
@@ -110,16 +105,12 @@ const getCategory = (categoryId) => {
 const loadCategory = (category) =>{
     clearPage();
     for(const meal of category.meals){
-        const thumbnail = document.createElement('img');
-        const itemLink = document.createElement('a');
-        const itemTitle = document.createElement('h2');
+        const itemLink = document.createElement('div');
         itemLink.classList.add('itemLink');
-        itemLink.href = '';
-        itemLink.setAttribute('onclick', 'getRecipe(' + meal.idMeal + '); return false;');
-        thumbnail.src = meal.strMealThumb;
-        itemTitle.textContent = meal.strMeal;
-        itemLink.append(thumbnail);
-        itemLink.append(itemTitle);
+        itemLink.innerHTML = `<img src="${meal.strMealThumb}"><h2>${meal.strMeal}</h2>`;
+        itemLink.addEventListener('click', () => {
+            getRecipe(meal.idMeal);
+        });
         wrapper.append(itemLink);
     }
 }
@@ -127,19 +118,7 @@ const loadCategory = (category) =>{
  const loadRecipe = (recipe) => {
     clearPage();
     const meal = recipe.meals[0];
-    const recipeName = document.createElement('h1');
-    const recipeImage = document.createElement('img');
-    const cuisine = document.createElement('h2');
-    const category = document.createElement('h2');
     const ingredients = document.createElement('ul');
-    const instructions = document.createElement('p');
-
-    recipeName.textContent = meal.strMeal;
-    recipeImage.src = meal.strMealThumb;
-    cuisine.textContent = 'Cuisine: ' + meal.strArea;
-    category.textContent = 'Category: ' + meal.strCategory;
-    instructions.textContent = meal.strInstructions;
-
     let x = 1;
     let ingredientX = 'strIngredient' + x;
     let measureX = 'strMeasure' + x;
@@ -152,12 +131,17 @@ const loadCategory = (category) =>{
         measureX = 'strMeasure' + x;
     }
 
-    wrapper.append(recipeName);
-    wrapper.append(recipeImage);
-    wrapper.append(cuisine);
-    wrapper.append(category);
-    wrapper.append(ingredients);
-    wrapper.append(instructions);
+    const recipeContainer = document.createElement('div');
+    recipeContainer.innerHTML = `
+        <h1>${meal.strMeal}</h1>
+        <img src="${meal.strMealThumb}">
+        <h2>Category: ${meal.strCategory}</h2>
+        <h2>Cuisine: ${meal.strArea}</h2>
+        ${ingredients.outerHTML}
+        <p>${meal.strInstructions}</p>
+    `;
+
+    wrapper.append(recipeContainer);
  }
 
  const clearPage = () => {
