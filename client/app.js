@@ -20,7 +20,7 @@ const getHomeContent = () => {
     tenRandomContainer.classList.add('tenRandomContainer');
     wrapper.append(categoriesContainer);
     wrapper.append(tenRandomContainer);
-    fetch('http://localhost:8000/home')
+    fetch('https://localhost:4000/home')
         .then(response => response.json())
         .then(home => {
             for(const meal of home.meals){
@@ -35,7 +35,7 @@ const getHomeContent = () => {
         })
         .catch(err => console.log(err));
 
-    fetch('http://localhost:8000/mealCategories')
+    fetch('https://localhost:4000/mealCategories')
         .then(response => response.json())
         .then(mealCategoryList =>{
             for(const category of mealCategoryList.categories){
@@ -53,9 +53,8 @@ const getHomeContent = () => {
 
 search.addEventListener('input', debounce(() => {
     const query = search.value;
-    console.log(query);
     autocompleteList.innerHTML = "";
-    fetch('http://localhost:8000/search/' + query)
+    fetch('https://localhost:4000/search/' + query)
         .then(response => {
             if(!response.ok) return;
             return response.json();
@@ -63,13 +62,11 @@ search.addEventListener('input', debounce(() => {
         .then(autocompleteResults => {
             if(autocompleteResults.meals === null){
                 autocompleteList.innerHTML = "No Results";
-                console.log('autocomplete.meals = null');
             }
             else{
                 let i = 0;
                 for(const meal of autocompleteResults.meals){
                     if (i >= 10) return;
-                    console.log(meal.strMeal);
                     const acLink = document.createElement('a');
                     acLink.classList.add('acLink');
                     acLink.href = '';
@@ -84,7 +81,7 @@ search.addEventListener('input', debounce(() => {
 }, 300));
 
 const getRecipe = (mealId) => {
-    fetch('http://localhost:8000/recipe/' + mealId)
+    fetch('https://localhost:4000/recipe/' + mealId)
         .then(response => response.json())
         .then(recipe => {
             loadRecipe(recipe);
@@ -93,8 +90,7 @@ const getRecipe = (mealId) => {
 }
 
 const getCategory = (categoryId) => {
-    console.log(categoryId);
-    fetch('http://localhost:8000/category/' + categoryId)
+    fetch('https://localhost:4000/category/' + categoryId)
         .then(response => response.json())
         .then(category => {
             loadCategory(category);
@@ -146,6 +142,7 @@ const loadCategory = (category) =>{
 
  const clearPage = () => {
     wrapper.innerHTML = '';
+    window.scrollTo(0,0);
  }
  
 document.getElementById('homeAnchor').setAttribute('onclick', 'getHomeContent(); return false;');

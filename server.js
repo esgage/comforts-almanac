@@ -1,9 +1,16 @@
-const PORT = 8000;
+const PORT = 4000;
 const axios = require("axios").default;
 const express = require('express');
+const https = require('https');
 const app = express();
 const cors = require('cors');
 require('dotenv').config();
+const fs = require('fs');
+const options = {
+  key: fs.readFileSync(process.env.SSLKEY),
+  cert: fs.readFileSync(process.env.SSLCERT),
+}
+
 app.use(cors());
 
 app.get('/home', (req, res) => {
@@ -51,7 +58,6 @@ app.get('/search/:query', (req, res) => {
   };
   axios.request(options).then(function (response) {
     res.json(response.data);
-    console.log(response.data);
   }).catch(function (error) {
     console.error(error);
   });
@@ -70,7 +76,6 @@ app.get('/category/:id', (req, res) =>{
   };
   axios.request(options).then(function (response) {
     res.json(response.data);
-    console.log(response.data);
   }).catch(function (error) {
     console.error(error);
   });
@@ -94,4 +99,6 @@ app.get('/recipe/:id', (req, res) => {
     });
 });
 
-app.listen(PORT, () => console.log('running on PORT ' + PORT));
+/*app.listen(PORT, () => console.log('running on PORT ' + PORT));*/
+
+https.createServer(options, app).listen(PORT, ()=> console.log('server is runing at port ' + PORT));
