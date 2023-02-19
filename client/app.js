@@ -80,14 +80,7 @@ search.addEventListener('input', debounce(() => {
         .catch(err => console.log(err));
 }, 300));
 
-const getRecipe = (mealId) => {
-    fetch('https://localhost:4000/recipe/' + mealId)
-        .then(response => response.json())
-        .then(recipe => {
-            loadRecipe(recipe);
-        })
-        .catch(err => console.log(err));
-}
+
 
 const getCategory = (categoryId) => {
     fetch('https://localhost:4000/category/' + categoryId)
@@ -111,7 +104,16 @@ const loadCategory = (category) =>{
     }
 }
 
- const loadRecipe = (recipe) => {
+const getRecipe = (mealId) => {
+    fetch('https://localhost:4000/recipe/' + mealId)
+        .then(response => response.json())
+        .then(recipe => {
+            loadRecipe(recipe);
+        })
+        .catch(err => console.log(err));
+}
+
+const loadRecipe = (recipe) => {
     clearPage();
     const meal = recipe.meals[0];
     const ingredients = document.createElement('ul');

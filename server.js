@@ -11,6 +11,11 @@ const options = {
   cert: fs.readFileSync(process.env.SSLCERT),
 }
 
+app.use((req, res, next) => {
+  res.setHeader("Content-Security-Policy", "default-src 'self' https://localhost:4000;");
+  next();
+});
+
 app.use(cors());
 
 app.get('/home', (req, res) => {
