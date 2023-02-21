@@ -10,7 +10,36 @@ const debounce = (func, delay) => {
         func(...args);
       }, delay);
     };
-  };
+};
+
+search.addEventListener('input', debounce(() => {
+    const query = search.value;
+    autocompleteList.innerHTML = "";
+    fetch('https://localhost:4000/search/' + query)
+        .then(response => {
+            if(!response.ok) return;
+            return response.json();
+        })
+        .then(autocompleteResults => {
+            if(autocompleteResults.meals === null){
+                autocompleteList.innerHTML = "No Results";
+            }
+            else{
+                let i = 0;
+                for(const meal of autocompleteResults.meals){
+                    if (i >= 10) return;
+                    const acLink = document.createElement('a');
+                    acLink.classList.add('acLink');
+                    acLink.href = '';
+                    acLink.setAttribute('onclick', 'getRecipe(' + meal.idMeal + '); return false;');
+                    acLink.textContent = meal.strMeal;
+                    autocompleteList.append(acLink);
+                    i++;
+                }
+            }
+        })
+        .catch(err => console.log(err));
+}, 300));
 
 const getHomeContent = () => {
     clearPage();
@@ -49,38 +78,20 @@ const getHomeContent = () => {
             }
         })
         .catch(err => console.log(err));
-}
 
-search.addEventListener('input', debounce(() => {
-    const query = search.value;
-    autocompleteList.innerHTML = "";
-    fetch('https://localhost:4000/search/' + query)
-        .then(response => {
-            if(!response.ok) return;
-            return response.json();
-        })
-        .then(autocompleteResults => {
-            if(autocompleteResults.meals === null){
-                autocompleteList.innerHTML = "No Results";
-            }
-            else{
-                let i = 0;
-                for(const meal of autocompleteResults.meals){
-                    if (i >= 10) return;
-                    const acLink = document.createElement('a');
-                    acLink.classList.add('acLink');
-                    acLink.href = '';
-                    acLink.setAttribute('onclick', 'getRecipe(' + meal.idMeal + '); return false;');
-                    acLink.textContent = meal.strMeal;
-                    autocompleteList.append(acLink);
-                    i++;
-                }
+    fetch('https://localhost:4000/areas')
+        .then(response => response.json())
+        .then(areaList =>{
+            for(const area of areaList.meals){
+                const itemLink = document.createElement('a');
+                itemLink.classList.add('area');
+                itemLink.innerHTML=area.strArea;
+                console.log(1);
+                wrapper.append(itemLink)
             }
         })
         .catch(err => console.log(err));
-}, 300));
-
-
+}
 
 const getCategory = (categoryId) => {
     fetch('https://localhost:4000/category/' + categoryId)
@@ -142,7 +153,7 @@ const loadRecipe = (recipe) => {
     wrapper.append(recipeContainer);
  }
 
- const clearPage = () => {
+const clearPage = () => {
     wrapper.innerHTML = '';
     window.scrollTo(0,0);
  }

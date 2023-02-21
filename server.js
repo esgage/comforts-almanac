@@ -34,7 +34,7 @@ app.get('/home', (req, res) => {
       });
 });
 
-app.get('/mealCategories', (req, res) =>{
+app.get('/mealCategories', (req, res) => {
   const options = {
     method: 'GET',
     url: 'https://themealdb.p.rapidapi.com/categories.php',
@@ -46,6 +46,24 @@ app.get('/mealCategories', (req, res) =>{
   axios.request(options).then(function (response) {
     res.json(response.data);
   }).catch(function (error) {
+    console.error(error);
+  });
+});
+
+app.get('/areas', (req, res) => {
+  const options = {
+    method: 'GET',
+    url: 'https://themealdb.p.rapidapi.com/list.php',
+    params: {a: 'list'},
+    headers: {
+      'X-RapidAPI-Key': process.env.RAPID_API_KEY,
+      'X-RapidAPI-Host': 'themealdb.p.rapidapi.com'
+    }
+  };
+  axios.request(options).then(function (response){
+    console.log(response.data);
+    res.json(response.data);
+  }).catch(function (error){
     console.error(error);
   });
 });

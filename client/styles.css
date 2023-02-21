@@ -21,3 +21,8 @@ body{
 .itemLink img{
     max-width: 250px;
 }
+
+.area{
+    display: inline-block;
+    margin:5px;
+}
