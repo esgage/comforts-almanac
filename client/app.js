@@ -15,6 +15,7 @@ const debounce = (func, delay) => {
 search.addEventListener('input', debounce(() => {
     const query = search.value;
     autocompleteList.innerHTML = "";
+    autocompleteList.style.display = 'block';
     fetch('https://localhost:4000/search/' + query)
         .then(response => {
             if(!response.ok) return;
@@ -40,6 +41,17 @@ search.addEventListener('input', debounce(() => {
         })
         .catch(err => console.log(err));
 }, 300));
+
+
+const hideAutoComplete = (event) => {
+    if(event.target.matches('#search') || event.target.matches('#autocomplete a') || event.target.matches('#autocomplete')){
+        console.log('match: - ' + event.target);
+        return;
+    }
+    autocompleteList.style.display = 'none';
+}
+document.addEventListener('touchstart', hideAutoComplete);
+document.addEventListener('click', hideAutoComplete);
 
 const getHomeContent = () => {
     clearPage();
@@ -181,6 +193,7 @@ const loadRecipe = (recipe) => {
  }
 
 const clearPage = () => {
+    autocomplete.style.display = 'none';
     wrapper.innerHTML = '';
     window.scrollTo(0,0);
  }
