@@ -45,15 +45,18 @@ const getHomeContent = () => {
     clearPage();
     const categoriesContainer = document.createElement('div');
     const tenRandomContainer = document.createElement('div');
+    const areas = document.createElement('div');
     categoriesContainer.classList.add('categoriesContainer');
     tenRandomContainer.classList.add('tenRandomContainer');
+    areas.classList.add('areasContainer');
     wrapper.append(categoriesContainer);
     wrapper.append(tenRandomContainer);
+    wrapper.append(areas);
     fetch('https://localhost:4000/home')
         .then(response => response.json())
         .then(home => {
             for(const meal of home.meals){
-                const itemLink = document.createElement('div');
+                const itemLink = document.createElement('a');
                 itemLink.classList.add('itemLink');
                 itemLink.innerHTML = `<img src="${meal.strMealThumb}"><h2>${meal.strMeal}</h2>`;
                 itemLink.addEventListener('click', () => {
@@ -64,20 +67,21 @@ const getHomeContent = () => {
         })
         .catch(err => console.log(err));
 
-    fetch('https://localhost:4000/mealCategories')
-        .then(response => response.json())
-        .then(mealCategoryList =>{
-            for(const category of mealCategoryList.categories){
-                const itemLink = document.createElement('div');
-                itemLink.classList.add('itemLink');
-                itemLink.innerHTML = `<img src="${category.strCategoryThumb}"><h2>${category.strCategory}<h2/>`;
-                itemLink.addEventListener('click', () => {
-                    getCategory(category.strCategory);
-                });
-                categoriesContainer.append(itemLink);
-            }
-        })
-        .catch(err => console.log(err));
+    const mealCategories = `
+        <a href="" onclick='getCategory("Beef"); return false;'>Beef</a>
+        <a href="" onclick='getCategory("Pork"); return false;'>Pork</a>
+        <a href="" onclick='getCategory("Lamb"); return false;'>Lamb</a>
+        <a href="" onclick='getCategory("Seafood"); return false;'>Seafood</a>
+        <a href="" onclick='getCategory("Chicken"); return false;'>Chicken</a>
+        <a href="" onclick='getCategory("Miscellaneous"); return false;'>Miscellaneous</a>
+        <a href="" onclick='getCategory("Pasta"); return false;'>Pasta</a>
+        <a href="" onclick='getCategory("Dessert"); return false;'>Dessert</a>
+        <a href="" onclick='getCategory("Breakfast"); return false;'>Breakfast</a>
+        <a href="" onclick='getCategory("Side"); return false;'>Side</a>
+        <a href="" onclick='getCategory("Vegan"); return false;'>Vegan</a>
+        <a href="" onclick='getCategory("Vegetarian"); return false;'>Vegetarian</a>
+    `;
+    categoriesContainer.innerHTML = mealCategories;
 
     fetch('https://localhost:4000/areas')
         .then(response => response.json())
@@ -86,8 +90,9 @@ const getHomeContent = () => {
                 const itemLink = document.createElement('a');
                 itemLink.classList.add('area');
                 itemLink.innerHTML=area.strArea;
-                console.log(1);
-                wrapper.append(itemLink)
+                itemLink.setAttribute('onclick', 'getArea(\'' + area.strArea + '\'); return false;');
+                console.log(area.strArea);
+                areas.append(itemLink);
             }
         })
         .catch(err => console.log(err));
@@ -100,6 +105,28 @@ const getCategory = (categoryId) => {
             loadCategory(category);
         })
         .catch(err => console.log(err));
+}
+
+const getArea = (areaId) => {
+    fetch('https://localhost:4000/areas/' + areaId)
+        .then(response => response.json())
+        .then(area => {
+            loadArea(area);
+        })
+        .catch(err => console.log(err));
+}
+
+const loadArea = (area) =>{
+    clearPage();
+    for(const meal of area.meals){
+        const itemLink = document.createElement('div');
+        itemLink.classList.add('itemLink');
+        itemLink.innerHTML = `<img src="${meal.strMealThumb}"><h2>${meal.strMeal}</h2>`;
+        itemLink.addEventListener('click', () => {
+            getRecipe(meal.idMeal);
+        });
+        wrapper.append(itemLink);
+    }
 }
 
 const loadCategory = (category) =>{
@@ -140,7 +167,7 @@ const loadRecipe = (recipe) => {
         measureX = 'strMeasure' + x;
     }
 
-    const recipeContainer = document.createElement('div');
+    const recipeContainer = document.createElement('div');  
     recipeContainer.innerHTML = `
         <h1>${meal.strMeal}</h1>
         <img src="${meal.strMealThumb}">

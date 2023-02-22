@@ -61,7 +61,6 @@ app.get('/areas', (req, res) => {
     }
   };
   axios.request(options).then(function (response){
-    console.log(response.data);
     res.json(response.data);
   }).catch(function (error){
     console.error(error);
@@ -92,6 +91,24 @@ app.get('/category/:id', (req, res) =>{
     method: 'GET',
     url: 'https://themealdb.p.rapidapi.com/filter.php',
     params: {c: id},
+    headers: {
+      'X-RapidAPI-Key': process.env.RAPID_API_KEY,
+      'X-RapidAPI-Host': 'themealdb.p.rapidapi.com'
+    }
+  };
+  axios.request(options).then(function (response) {
+    res.json(response.data);
+  }).catch(function (error) {
+    console.error(error);
+  });
+});
+
+app.get('/areas/:id', (req, res) =>{
+  const id = req.params.id;
+  const options = {
+    method: 'GET',
+    url: 'https://themealdb.p.rapidapi.com/filter.php',
+    params: {a: id},
     headers: {
       'X-RapidAPI-Key': process.env.RAPID_API_KEY,
       'X-RapidAPI-Host': 'themealdb.p.rapidapi.com'
