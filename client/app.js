@@ -16,7 +16,7 @@ search.addEventListener('input', debounce(() => {
     const query = search.value;
     autocompleteList.innerHTML = "";
     autocompleteList.style.display = 'block';
-    fetch('https://localhost:4000/search/' + query)
+    fetch('http://localhost:3000/search/' + query)
         .then(response => {
             if(!response.ok) return;
             return response.json();
@@ -54,6 +54,7 @@ document.addEventListener('touchstart', hideAutoComplete);
 document.addEventListener('click', hideAutoComplete);
 
 const getHomeContent = () => {
+    history.pushState(null, null, '/');
     clearPage();
     const categoriesContainer = document.createElement('div');
     const tenRandomContainer = document.createElement('div');
@@ -64,7 +65,7 @@ const getHomeContent = () => {
     wrapper.append(categoriesContainer);
     wrapper.append(tenRandomContainer);
     wrapper.append(areas);
-    fetch('https://localhost:4000/home')
+    fetch('http://localhost:3000/home')
         .then(response => response.json())
         .then(home => {
             for(const meal of home.meals){
@@ -95,7 +96,7 @@ const getHomeContent = () => {
     `;
     categoriesContainer.innerHTML = mealCategories;
 
-    fetch('https://localhost:4000/areas')
+    fetch('http://localhost:3000/areas')
         .then(response => response.json())
         .then(areaList =>{
             for(const area of areaList.meals){
@@ -111,7 +112,8 @@ const getHomeContent = () => {
 }
 
 const getCategory = (categoryId) => {
-    fetch('https://localhost:4000/category/' + categoryId)
+    history.pushState(null, null, `/${categoryId.toLowerCase()}`);
+    fetch('http://localhost:3000/category/' + categoryId)
         .then(response => response.json())
         .then(category => {
             loadCategory(category);
@@ -120,9 +122,11 @@ const getCategory = (categoryId) => {
 }
 
 const getArea = (areaId) => {
-    fetch('https://localhost:4000/areas/' + areaId)
+    history.pushState(null, null, `/${areaId.toLowerCase()}`);
+    fetch('http://localhost:3000/areas/' + areaId)
         .then(response => response.json())
         .then(area => {
+            history.pushState(null, null, `?area=${areaId}`)
             loadArea(area);
         })
         .catch(err => console.log(err));
@@ -155,7 +159,7 @@ const loadCategory = (category) =>{
 }
 
 const getRecipe = (mealId) => {
-    fetch('https://localhost:4000/recipe/' + mealId)
+    fetch('http://localhost:3000/recipe/' + mealId)
         .then(response => response.json())
         .then(recipe => {
             loadRecipe(recipe);
@@ -166,6 +170,7 @@ const getRecipe = (mealId) => {
 const loadRecipe = (recipe) => {
     clearPage();
     const meal = recipe.meals[0];
+    history.pushState(null, null, `/?recipe=${meal.strMeal.replace(/ /g, '_').toLowerCase()}`);
     const ingredients = document.createElement('ul');
     let x = 1;
     let ingredientX = 'strIngredient' + x;
