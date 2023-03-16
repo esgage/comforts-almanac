@@ -2,6 +2,8 @@ const wrapper = document.getElementById('wrapper');
 const searchInput = document.getElementById('search');
 const autocompleteList = document.getElementById('autocomplete');
 
+let popStateFired = 0;
+
 const debounce = (func, delay) => {
     let timeoutId;
     return (...args) => {
@@ -16,7 +18,7 @@ search.addEventListener('input', debounce(() => {
     const query = search.value;
     autocompleteList.innerHTML = "";
     autocompleteList.style.display = 'block';
-    fetch('http://localhost:3000/search/' + query)
+    fetch('/search/' + query)
         .then(response => {
             if(!response.ok) return;
             return response.json();
@@ -54,7 +56,6 @@ document.addEventListener('touchstart', hideAutoComplete);
 document.addEventListener('click', hideAutoComplete);
 
 const getHomeContent = () => {
-    history.pushState(null, null, '/');
     clearPage();
     const categoriesContainer = document.createElement('div');
     const tenRandomContainer = document.createElement('div');
@@ -65,9 +66,14 @@ const getHomeContent = () => {
     wrapper.append(categoriesContainer);
     wrapper.append(tenRandomContainer);
     wrapper.append(areas);
-    fetch('http://localhost:3000/home')
+    fetch('/home')
         .then(response => response.json())
         .then(home => {
+            if(!popStateFired){
+                history.pushState('home', null, '/');
+            }
+            popStateFired = 0;
+            document.title = 'Comforts Almanac';
             for(const meal of home.meals){
                 const itemLink = document.createElement('a');
                 itemLink.classList.add('itemLink');
@@ -96,7 +102,7 @@ const getHomeContent = () => {
     `;
     categoriesContainer.innerHTML = mealCategories;
 
-    fetch('http://localhost:3000/areas')
+    fetch('/areas')
         .then(response => response.json())
         .then(areaList =>{
             for(const area of areaList.meals){
@@ -104,7 +110,6 @@ const getHomeContent = () => {
                 itemLink.classList.add('area');
                 itemLink.innerHTML=area.strArea;
                 itemLink.setAttribute('onclick', 'getArea(\'' + area.strArea + '\'); return false;');
-                console.log(area.strArea);
                 areas.append(itemLink);
             }
         })
@@ -112,21 +117,28 @@ const getHomeContent = () => {
 }
 
 const getCategory = (categoryId) => {
-    history.pushState(null, null, `/${categoryId.toLowerCase()}`);
-    fetch('http://localhost:3000/category/' + categoryId)
+    fetch('/category/' + categoryId)
         .then(response => response.json())
         .then(category => {
+            if(!popStateFired){
+                history.pushState('category', null, `/${categoryId.toLowerCase()}`);
+            }
+            popStateFired = 0;
+            document.title = categoryId;
             loadCategory(category);
         })
         .catch(err => console.log(err));
 }
 
 const getArea = (areaId) => {
-    history.pushState(null, null, `/${areaId.toLowerCase()}`);
-    fetch('http://localhost:3000/areas/' + areaId)
+    fetch('/areas/' + areaId)
         .then(response => response.json())
         .then(area => {
-            history.pushState(null, null, `?area=${areaId}`)
+            if(!popStateFired){
+                history.pushState('area', null, `/${areaId.toLowerCase()}`);
+            }
+            popStateFired = 0;
+            document.title = areaId;
             loadArea(area);
         })
         .catch(err => console.log(err));
@@ -159,7 +171,7 @@ const loadCategory = (category) =>{
 }
 
 const getRecipe = (mealId) => {
-    fetch('http://localhost:3000/recipe/' + mealId)
+    fetch('/recipe/' + mealId)
         .then(response => response.json())
         .then(recipe => {
             loadRecipe(recipe);
@@ -170,7 +182,11 @@ const getRecipe = (mealId) => {
 const loadRecipe = (recipe) => {
     clearPage();
     const meal = recipe.meals[0];
-    history.pushState(null, null, `/?recipe=${meal.strMeal.replace(/ /g, '_').toLowerCase()}`);
+    if(!popStateFired){
+        history.pushState('recipe', null, `?recipe=${meal.strMeal.replace(/ /g, '_').toLowerCase()}`);
+    }
+    popStateFired = 0;
+    document.title = meal.strMeal;
     const ingredients = document.createElement('ul');
     let x = 1;
     let ingredientX = 'strIngredient' + x;
@@ -203,6 +219,37 @@ const clearPage = () => {
     window.scrollTo(0,0);
  }
  
+ window.addEventListener('popstate', e => {
+    popStateFired = 1;
+    if(window.location.search){
+        checkQuery();
+    } else {
+        switch (e.state){
+            case 'category':
+                getCategory(window.location.pathname.substring(1));
+            break;
+            case 'area':
+                getArea(window.location.pathname.substring(1));
+            break;
+            case 'home':
+                getHomeContent();
+        }
+    }
+ });
+
+ const checkQuery = ()=>{
+    if(window.location.search){
+        const urlQuery = window.location.search;
+        const urlQueryRecipe = urlQuery.split('=').pop().replace(/_/g, ' ');
+        fetch('/search/' + urlQueryRecipe)
+            .then(response => response.json())
+            .then(recipe => {
+                loadRecipe(recipe);
+            })
+            .catch(err => console.log(err));
+    }
+}
+
 document.getElementById('homeAnchor').setAttribute('onclick', 'getHomeContent(); return false;');
 
 getHomeContent();
