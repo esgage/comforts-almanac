@@ -44,6 +44,36 @@ search.addEventListener('input', debounce(() => {
         .catch(err => console.log(err));
 }, 300));
 
+const loadSearchResults = () => {
+    const query = search.value;
+    fetch('/search/' + query)
+        .then(response => {
+            if(!response.ok) return;
+            return response.json();
+        })
+        .then(searchResults => {
+            if(searchResults.meals === null){
+                autocompleteList.innerHTML = "No Results";
+            }
+            else{
+                clearPage();
+                let i = 0;
+                for(const meal of searchResults.meals){
+                    if (i >= 10) return;
+                    const sResult = document.createElement('a');
+                    sResult.classList.add('sarch-result');
+                    sResult.href = '';
+                    sResult.setAttribute('onclick', 'getRecipe(' + meal.idMeal + '); return false;');
+                    sResult.innerHTML = `<img src="${meal.strMealThumb}"><h2>${meal.strMeal}</h2>`;
+                    wrapper.append(sResult);
+                    i++;
+                }
+            }
+        })
+        .catch(err => console.log(err));
+    console.log('pointerdown');
+}
+
 
 const hideAutoComplete = (event) => {
     if(event.target.matches('#search') || event.target.matches('#autocomplete a') || event.target.matches('#autocomplete')){
@@ -250,6 +280,7 @@ const clearPage = () => {
     }
 }
 
+const searchSubmit = document.getElementById('search_submit').setAttribute('onpointerdown', 'loadSearchResults();');
 document.getElementById('homeAnchor').setAttribute('onclick', 'getHomeContent(); return false;');
 
 getHomeContent();
