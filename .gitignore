@@ -4,3 +4,4 @@ recipe.csr
 recipe.key
 recipe_public.key
 design_files
+default

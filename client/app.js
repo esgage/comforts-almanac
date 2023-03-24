@@ -18,7 +18,7 @@ search.addEventListener('input', debounce(() => {
     const query = search.value;
     autocompleteList.innerHTML = "";
     autocompleteList.style.display = 'block';
-    fetch('/search/' + query)
+    fetch('/fetch-search/' + query)
         .then(response => {
             if(!response.ok) return;
             return response.json();
@@ -44,9 +44,12 @@ search.addEventListener('input', debounce(() => {
         .catch(err => console.log(err));
 }, 300));
 
-const loadSearchResults = () => {
-    const query = search.value;
-    fetch('/search/' + query)
+const loadSearchResults = (urlPathQuery) => {
+    let query = urlPathQuery;
+    if (!query){
+        query = search.value;
+    }
+    fetch('/fetch-search/' + query)
         .then(response => {
             if(!response.ok) return;
             return response.json();
@@ -57,6 +60,9 @@ const loadSearchResults = () => {
             }
             else{
                 clearPage();
+                if(!popStateFired){
+                    history.pushState('search', null,'/search/' + query);
+                }
                 let i = 0;
                 for(const meal of searchResults.meals){
                     if (i >= 10) return;
@@ -71,7 +77,6 @@ const loadSearchResults = () => {
             }
         })
         .catch(err => console.log(err));
-    console.log('pointerdown');
 }
 
 
@@ -96,7 +101,7 @@ const getHomeContent = () => {
     wrapper.append(categoriesContainer);
     wrapper.append(tenRandomContainer);
     wrapper.append(areas);
-    fetch('/home')
+    fetch('/fetch-home')
         .then(response => response.json())
         .then(home => {
             if(!popStateFired){
@@ -132,7 +137,7 @@ const getHomeContent = () => {
     `;
     categoriesContainer.innerHTML = mealCategories;
 
-    fetch('/areas')
+    fetch('/fetch-areas')
         .then(response => response.json())
         .then(areaList =>{
             for(const area of areaList.meals){
@@ -147,11 +152,11 @@ const getHomeContent = () => {
 }
 
 const getCategory = (categoryId) => {
-    fetch('/category/' + categoryId)
+    fetch('/fetch-category/' + categoryId)
         .then(response => response.json())
         .then(category => {
             if(!popStateFired){
-                history.pushState('category', null, `/${categoryId.toLowerCase()}`);
+                history.pushState('category', null, `/category/${categoryId.toLowerCase()}`);
             }
             popStateFired = 0;
             document.title = categoryId;
@@ -161,11 +166,11 @@ const getCategory = (categoryId) => {
 }
 
 const getArea = (areaId) => {
-    fetch('/areas/' + areaId)
+    fetch('/fetch-areas/' + areaId)
         .then(response => response.json())
         .then(area => {
             if(!popStateFired){
-                history.pushState('area', null, `/${areaId.toLowerCase()}`);
+                history.pushState('area', null, `/area/${areaId.toLowerCase()}`);
             }
             popStateFired = 0;
             document.title = areaId;
@@ -201,7 +206,7 @@ const loadCategory = (category) =>{
 }
 
 const getRecipe = (mealId) => {
-    fetch('/recipe/' + mealId)
+    fetch('/fetch-recipe/' + mealId)
         .then(response => response.json())
         .then(recipe => {
             loadRecipe(recipe);
@@ -213,7 +218,7 @@ const loadRecipe = (recipe) => {
     clearPage();
     const meal = recipe.meals[0];
     if(!popStateFired){
-        history.pushState('recipe', null, `?recipe=${meal.strMeal.replace(/ /g, '_').toLowerCase()}`);
+        history.pushState('recipe', null, `/recipe/${meal.strMeal.replace(/ /g, '_').toLowerCase()}`);
     }
     popStateFired = 0;
     document.title = meal.strMeal;
@@ -251,36 +256,36 @@ const clearPage = () => {
  
  window.addEventListener('popstate', e => {
     popStateFired = 1;
-    if(window.location.search){
-        checkQuery();
-    } else {
-        switch (e.state){
-            case 'category':
-                getCategory(window.location.pathname.substring(1));
-            break;
-            case 'area':
-                getArea(window.location.pathname.substring(1));
-            break;
-            case 'home':
-                getHomeContent();
-        }
-    }
+    checkUriPath();
  });
 
- const checkQuery = ()=>{
-    if(window.location.search){
-        const urlQuery = window.location.search;
-        const urlQueryRecipe = urlQuery.split('=').pop().replace(/_/g, ' ');
-        fetch('/search/' + urlQueryRecipe)
-            .then(response => response.json())
-            .then(recipe => {
-                loadRecipe(recipe);
-            })
-            .catch(err => console.log(err));
+const checkUriPath = () => {
+    const uriPath = window.location.pathname.split('/');
+    switch(uriPath[1]){
+        case 'area':
+            getArea(uriPath[2]);
+        break;
+        case 'category':
+            getCategory(uriPath[2]);
+        break;
+        case 'recipe':
+            const uriPathRecipe = uriPath[2].replace(/_/g, ' ');
+            fetch('/fetch-search/' + uriPathRecipe)
+                .then(response => response.json())
+                .then(recipe => {
+                    loadRecipe(recipe);
+                })
+                .catch(err => console.log(err));
+        break;
+        case 'search':
+            loadSearchResults(uriPath[2]);
+        break;
+        default:
+            getHomeContent();
     }
 }
 
+checkUriPath();
+
 const searchSubmit = document.getElementById('search_submit').setAttribute('onpointerdown', 'loadSearchResults();');
 document.getElementById('homeAnchor').setAttribute('onclick', 'getHomeContent(); return false;');
-
-getHomeContent();

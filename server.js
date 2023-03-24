@@ -20,7 +20,7 @@ console.log('say something!!!!!');
 
 app.use(cors());
 
-app.get('/home', (req, res) => {
+app.get('/fetch-home', (req, res) => {
     console.log('request for /home');
     const options = {
         method: 'GET',
@@ -37,24 +37,7 @@ app.get('/home', (req, res) => {
       });
 });
 
-app.get('/mealCategories', (req, res) => {
-  console.log('request for /mealcategories');
-  const options = {
-    method: 'GET',
-    url: 'https://themealdb.p.rapidapi.com/categories.php',
-    headers: {
-      'X-RapidAPI-Key': process.env.RAPID_API_KEY,
-      'X-RapidAPI-Host': 'themealdb.p.rapidapi.com'
-    }
-  };
-  axios.request(options).then(function (response) {
-    res.json(response.data);
-  }).catch(function (error) {
-    console.error(error);
-  });
-});
-
-app.get('/areas', (req, res) => {
+app.get('/fetch-areas', (req, res) => {
   console.log('request for /areas');
   const options = {
     method: 'GET',
@@ -72,7 +55,7 @@ app.get('/areas', (req, res) => {
   });
 });
 
-app.get('/search/:query', (req, res) => {
+app.get('/fetch-search/:query', (req, res) => {
   console.log('request for search query');
   const query = req.params.query;
   const options = {
@@ -91,7 +74,7 @@ app.get('/search/:query', (req, res) => {
   });
 });
 
-app.get('/category/:id', (req, res) =>{
+app.get('/fetch-category/:id', (req, res) =>{
   console.log('request for category');
   const id = req.params.id;
   const options = {
@@ -110,7 +93,7 @@ app.get('/category/:id', (req, res) =>{
   });
 });
 
-app.get('/areas/:id', (req, res) =>{
+app.get('/fetch-areas/:id', (req, res) =>{
   console.log('request for area');
   const id = req.params.id;
   const options = {
@@ -129,7 +112,7 @@ app.get('/areas/:id', (req, res) =>{
   });
 });
 
-app.get('/recipe/:id', (req, res) => {
+app.get('/fetch-recipe/:id', (req, res) => {
   console.log('request for recipe');
   const id = req.params.id;
     const options = {
