@@ -1,14 +1,13 @@
 body{
-    max-width: 1000px;
+    max-width: 1200px;
     margin: auto;
 }
 
 #wrapper{
-    max-width: 1000px;
 }
 
 .itemLink{
-    width: 250px;
+    width: 400px;
     height: 320px;
     background-color: rgb(240,240,240);
     display: block;
@@ -19,7 +18,7 @@ body{
 }
 
 .itemLink img{
-    max-width: 250px;
+    max-width: 400px;
 }
 
 .area{
