@@ -251,8 +251,8 @@ const loadRecipe = (recipe) => {
     recipeContainer.innerHTML = `
         <h1>${meal.strMeal}</h1>
         <img src="${meal.strMealThumb}">
-        <h2>Category: ${meal.strCategory}</h2>
-        <h2>Cuisine: ${meal.strArea}</h2>
+        <h2>Category: <a href="" onClick='getCategory("${meal.strCategory}"); return false;'>${meal.strCategory}</a></h2>
+        <h2>Cuisine: <a href="" onClick='getArea("${meal.strArea}"); return false;'>${meal.strArea}</a></h2>
         ${ingredients.outerHTML}
         <p>${meal.strInstructions}</p>
     `;
