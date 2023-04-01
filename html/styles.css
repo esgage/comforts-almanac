@@ -1,27 +1,116 @@
+*{
+    color:rgb(70, 64, 59);
+}
+
+a{
+    text-decoration: none;
+}
+
+h2, a{
+    font-family: 'Gabriela';
+}
+
 body{
     max-width: 1200px;
     margin: auto;
+    background-color: rgb(232, 227, 223);
+}
+
+#header-logo{
+    display: block;
+    text-align: center;
+    width: 300px;
+    margin: auto;
+    font-family: 'Galada';
+}
+
+.top_nav > form{
+    display: block;
+    width: 350px;
+    margin: auto;
+}
+
+#search{
+    width: 300px;
+    box-sizing: border-box;
+}
+
+#autocomplete{
+    width: 300px;
+    left: 50%;
+    transform: translateX(-175px);
+    position: absolute;
+    background-color:blanchedalmond;
+}
+
+#autocomplete a{
+    display: block;
 }
 
 #wrapper{
+    padding: 0 5px;
+}
+
+.categories-list-container{
+    display: grid;
+    row-gap: 25px;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.categories-list-container > a{
+    min-height: 100px;
+    background-size: 80% auto;
+    background-position: top center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+}
+
+.categories-list-container > a span{
+    align-self: flex-end;
+}
+
+.link-cat-beef{ background-image: url("/images/beef_600.png");}
+.link-cat-pork{ background-image: url("/images/pork_600.png");}
+.link-cat-lamb{ background-image: url("/images/lamb_600.png");}
+.link-cat-seafood{ background-image: url("/images/seafood_600.png");}
+.link-cat-chicken{ background-image: url("/images/chicken_600.png");}
+.link-cat-misc{ background-image: url("/images/misc_600.png");}
+.link-cat-pasta{ background-image: url("/images/pasta_600.png");}
+.link-cat-dessert{ background-image: url("/images/dessert_600.png");}
+.link-cat-breakfast{ background-image: url("/images/breakfast_600.png");}
+.link-cat-sides{ background-image: url("/images/sides_600.png");}
+.link-cat-vegan{ background-image: url("/images/vegan_600.png");}
+.link-cat-vegetarian{ background-image: url("/images/vegetarian_600.png");}
+
+.tenRandom-container, .category-container{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 5px;
 }
 
 .itemLink{
-    width: 400px;
-    height: 320px;
-    background-color: rgb(240,240,240);
-    display: block;
-    float: left;
     text-align: center;
-    border-radius: 3px;
+    font-size: 10px;
+    background-color: rgb(50, 106, 134);
     overflow: hidden;
+    border-radius: 3px;
+}
+
+.itemLink h2{
+    color:rgb(227, 239, 242);
 }
 
 .itemLink img{
-    max-width: 400px;
+    width: 100%;
 }
 
 .area{
     display: inline-block;
     margin:5px;
+}
+
+.recipe-container img{
+    max-width: 100%;
+    border-radius: 3px;
 }

@@ -95,8 +95,8 @@ const getHomeContent = () => {
     const categoriesContainer = document.createElement('div');
     const tenRandomContainer = document.createElement('div');
     const areas = document.createElement('div');
-    categoriesContainer.classList.add('categoriesContainer');
-    tenRandomContainer.classList.add('tenRandomContainer');
+    categoriesContainer.classList.add('categories-list-container');
+    tenRandomContainer.classList.add('tenRandom-container');
     areas.classList.add('areasContainer');
     wrapper.append(categoriesContainer);
     wrapper.append(tenRandomContainer);
@@ -122,18 +122,18 @@ const getHomeContent = () => {
         .catch(err => console.log(err));
 
     const mealCategories = `
-        <a href="" onclick='getCategory("Beef"); return false;'>Beef</a>
-        <a href="" onclick='getCategory("Pork"); return false;'>Pork</a>
-        <a href="" onclick='getCategory("Lamb"); return false;'>Lamb</a>
-        <a href="" onclick='getCategory("Seafood"); return false;'>Seafood</a>
-        <a href="" onclick='getCategory("Chicken"); return false;'>Chicken</a>
-        <a href="" onclick='getCategory("Miscellaneous"); return false;'>Miscellaneous</a>
-        <a href="" onclick='getCategory("Pasta"); return false;'>Pasta</a>
-        <a href="" onclick='getCategory("Dessert"); return false;'>Dessert</a>
-        <a href="" onclick='getCategory("Breakfast"); return false;'>Breakfast</a>
-        <a href="" onclick='getCategory("Side"); return false;'>Side</a>
-        <a href="" onclick='getCategory("Vegan"); return false;'>Vegan</a>
-        <a href="" onclick='getCategory("Vegetarian"); return false;'>Vegetarian</a>
+        <a class="link-cat-beef" href="" onclick='getCategory("Beef"); return false;'><span>Beef</span></a>
+        <a class="link-cat-pork" href="" onclick='getCategory("Pork"); return false;'><span>Pork</span></a>
+        <a class="link-cat-lamb" href="" onclick='getCategory("Lamb"); return false;'><span>Lamb</span></a>
+        <a class="link-cat-seafood" href="" onclick='getCategory("Seafood"); return false;'><span>Seafood</span></a>
+        <a class="link-cat-chicken" href="" onclick='getCategory("Chicken"); return false;'><span>Chicken</span></a>
+        <a class="link-cat-misc" href="" onclick='getCategory("Miscellaneous"); return false;'><span>Misc.</span></a>
+        <a class="link-cat-pasta" href="" onclick='getCategory("Pasta"); return false;'><span>Pasta</span></a>
+        <a class="link-cat-dessert" href="" onclick='getCategory("Dessert"); return false;'><span>Dessert</span></a>
+        <a class="link-cat-breakfast" href="" onclick='getCategory("Breakfast"); return false;'><span>Breakfast</span></a>
+        <a class="link-cat-sides" href="" onclick='getCategory("Side"); return false;'><span>Side</span></a>
+        <a class="link-cat-vegan" href="" onclick='getCategory("Vegan"); return false;'><span>Vegan</span></a>
+        <a class="link-cat-vegetarian" href="" onclick='getCategory("Vegetarian"); return false;'><span>Vegetarian</span></a>
     `;
     categoriesContainer.innerHTML = mealCategories;
 
@@ -159,7 +159,12 @@ const getCategory = (categoryId) => {
                 history.pushState('category', null, `/category/${categoryId.toLowerCase()}`);
             }
             popStateFired = 0;
+            clearPage();
             document.title = categoryId;
+            const categoryHeading = document.createElement('h1');
+            categoryHeading.classList.add('category-heading');
+            categoryHeading.innerText = categoryId;
+            wrapper.append(categoryHeading);
             loadCategory(category);
         })
         .catch(err => console.log(err));
@@ -173,6 +178,11 @@ const getArea = (areaId) => {
                 history.pushState('area', null, `/area/${areaId.toLowerCase()}`);
             }
             popStateFired = 0;
+            clearPage();
+            const areaHeading = document.createElement('h1');
+            areaHeading.classList.add('area-heading');
+            areaHeading.innerText = areaId;
+            wrapper.append(areaHeading);
             document.title = areaId;
             loadArea(area);
         })
@@ -180,7 +190,6 @@ const getArea = (areaId) => {
 }
 
 const loadArea = (area) =>{
-    clearPage();
     for(const meal of area.meals){
         const itemLink = document.createElement('div');
         itemLink.classList.add('itemLink');
@@ -193,7 +202,8 @@ const loadArea = (area) =>{
 }
 
 const loadCategory = (category) =>{
-    clearPage();
+    const categoryContainer = document.createElement('div');
+    categoryContainer.classList.add('category-container');
     for(const meal of category.meals){
         const itemLink = document.createElement('div');
         itemLink.classList.add('itemLink');
@@ -201,8 +211,9 @@ const loadCategory = (category) =>{
         itemLink.addEventListener('click', () => {
             getRecipe(meal.idMeal);
         });
-        wrapper.append(itemLink);
+        categoryContainer.append(itemLink);
     }
+    wrapper.append(categoryContainer);
 }
 
 const getRecipe = (mealId) => {
@@ -236,6 +247,7 @@ const loadRecipe = (recipe) => {
     }
 
     const recipeContainer = document.createElement('div');  
+    recipeContainer.classList.add('recipe-container');
     recipeContainer.innerHTML = `
         <h1>${meal.strMeal}</h1>
         <img src="${meal.strMealThumb}">
@@ -288,4 +300,4 @@ const checkUriPath = () => {
 checkUriPath();
 
 const searchSubmit = document.getElementById('search_submit').setAttribute('onpointerdown', 'loadSearchResults();');
-document.getElementById('homeAnchor').setAttribute('onclick', 'getHomeContent(); return false;');
+document.getElementById('header-logo').setAttribute('onclick', 'getHomeContent(); return false;');
