@@ -83,7 +83,7 @@ body{
 .link-cat-vegan{ background-image: url("/images/vegan_600.png");}
 .link-cat-vegetarian{ background-image: url("/images/vegetarian_600.png");}
 
-.tenRandom-container, .category-container{
+.tenRandom-container, .category-container, .area-container, .search-results-container{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 5px;

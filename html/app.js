@@ -64,14 +64,22 @@ const loadSearchResults = (urlPathQuery) => {
                     history.pushState('search', null,'/search/' + query);
                 }
                 let i = 0;
+                document.title = `Results for: "${query}"`;
+                const searchResultsContainer = document.createElement('div');
+                const searchResultsHeading = document.createElement('h2');
+                searchResultsContainer.classList.add('search-results-container');
+                searchResultsHeading.classList.add('search-results-heading');
+                searchResultsHeading.innerText = `Results for: "${query}"`;
+                wrapper.append(searchResultsHeading)
+                wrapper.append(searchResultsContainer);
                 for(const meal of searchResults.meals){
                     if (i >= 10) return;
                     const sResult = document.createElement('a');
-                    sResult.classList.add('sarch-result');
+                    sResult.classList.add('itemLink');
                     sResult.href = '';
                     sResult.setAttribute('onclick', 'getRecipe(' + meal.idMeal + '); return false;');
                     sResult.innerHTML = `<img src="${meal.strMealThumb}"><h2>${meal.strMeal}</h2>`;
-                    wrapper.append(sResult);
+                    searchResultsContainer.append(sResult);
                     i++;
                 }
             }
@@ -190,6 +198,8 @@ const getArea = (areaId) => {
 }
 
 const loadArea = (area) =>{
+    const areaContainer = document.createElement('div');
+    areaContainer.classList.add('area-container');
     for(const meal of area.meals){
         const itemLink = document.createElement('div');
         itemLink.classList.add('itemLink');
@@ -197,8 +207,9 @@ const loadArea = (area) =>{
         itemLink.addEventListener('click', () => {
             getRecipe(meal.idMeal);
         });
-        wrapper.append(itemLink);
+        areaContainer.append(itemLink);
     }
+    wrapper.append(areaContainer);
 }
 
 const loadCategory = (category) =>{
