@@ -24,7 +24,7 @@ body{
     font-family: 'Galada';
 }
 
-.top_nav > form{
+.search-form{
     display: block;
     width: 350px;
     margin: auto;
@@ -47,18 +47,20 @@ body{
     display: block;
 }
 
-#wrapper{
+#content-container{
     padding: 0 5px;
 }
 
-.categories-list-container{
-    display: grid;
+.categories-container{
+    display: flex;
     row-gap: 25px;
-    grid-template-columns: repeat(4, 1fr);
+    overflow-y: scroll;
+    /*grid-template-columns: repeat(4, 1fr);*/
 }
 
-.categories-list-container > a{
+.categories-container > a{
     min-height: 100px;
+    min-width: 100px;
     background-size: 80% auto;
     background-position: top center;
     background-repeat: no-repeat;
@@ -66,7 +68,7 @@ body{
     justify-content: center;
 }
 
-.categories-list-container > a span{
+.categories-container > a span{
     align-self: flex-end;
 }
 
@@ -113,4 +115,30 @@ body{
 .recipe-container img{
     max-width: 100%;
     border-radius: 3px;
+}
+
+.areas-container{
+    text-align: center;
+}
+
+
+@media (min-width:480px){
+    .tenRandom-container, .category-container, .area-container, .search-results-container{
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .tenRandom-container a:last-child{
+        display: none;
+    }
+
+}
+
+@media (min-width: 1200px){
+    .tenRandom-container, .category-container, .area-container, .search-results-container{
+        grid-template-columns: repeat(4, 1fr);
+    }
+    .tenRandom-container a:nth-child(9){
+        display: none;
+    }
+
 }

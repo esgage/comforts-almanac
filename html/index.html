@@ -1,25 +1,37 @@
 <!DOCTYPE html>
-<html>
-    <head lang="en">
+<html lang="en">
+    <head>
         <meta charset="UTF-8">
         <title>Comforts Almanac</title>
         <link rel="stylesheet" href="/styles.css">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+        <meta name="viewport" content="width=device-width">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Galada&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Gabriela&display=swap" rel="stylesheet">
     </head>
     <body>
-        <a href="" id="header-logo"><h1>Comforts <br />Almanac</h1></a>
-            <div class="top_nav">
-                    <form>
-                        <input id="search"><input id="search_submit" type="button" value="search">
-                    </form>
-                    <div id="autocomplete"></div>
-                </div>
-            <div id="wrapper">
-            </div>
+        <a href="" id="header-logo"><h1>Comforts <br>Almanac</h1></a>
+        <form class="search-form">
+            <input id="search"><input id="search_submit" type="button" value="search">
+        </form>
+        <div id="autocomplete"></div>
+        <div class="categories-container">
+            <a class="link-cat-beef" href="" onclick='getCategory("Beef"); return false;'><span>Beef</span></a>
+            <a class="link-cat-pork" href="" onclick='getCategory("Pork"); return false;'><span>Pork</span></a>
+            <a class="link-cat-lamb" href="" onclick='getCategory("Lamb"); return false;'><span>Lamb</span></a>
+            <a class="link-cat-seafood" href="" onclick='getCategory("Seafood"); return false;'><span>Seafood</span></a>
+            <a class="link-cat-chicken" href="" onclick='getCategory("Chicken"); return false;'><span>Chicken</span></a>
+            <a class="link-cat-misc" href="" onclick='getCategory("Miscellaneous"); return false;'><span>Misc.</span></a>
+            <a class="link-cat-pasta" href="" onclick='getCategory("Pasta"); return false;'><span>Pasta</span></a>
+            <a class="link-cat-dessert" href="" onclick='getCategory("Dessert"); return false;'><span>Dessert</span></a>
+            <a class="link-cat-breakfast" href="" onclick='getCategory("Breakfast"); return false;'><span>Breakfast</span></a>
+            <a class="link-cat-sides" href="" onclick='getCategory("Side"); return false;'><span>Side</span></a>
+            <a class="link-cat-vegan" href="" onclick='getCategory("Vegan"); return false;'><span>Vegan</span></a>
+            <a class="link-cat-vegetarian" href="" onclick='getCategory("Vegetarian"); return false;'><span>Vegetarian</span></a>
+        </div>
+        <div id="content-container">
+        </div>
         <script src="/app.js"></script>
     </body>
 </html>

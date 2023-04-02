@@ -1,4 +1,4 @@
-const wrapper = document.getElementById('wrapper');
+const contentContainer = document.getElementById('content-container');
 const searchInput = document.getElementById('search');
 const autocompleteList = document.getElementById('autocomplete');
 
@@ -70,8 +70,8 @@ const loadSearchResults = (urlPathQuery) => {
                 searchResultsContainer.classList.add('search-results-container');
                 searchResultsHeading.classList.add('search-results-heading');
                 searchResultsHeading.innerText = `Results for: "${query}"`;
-                wrapper.append(searchResultsHeading)
-                wrapper.append(searchResultsContainer);
+                contentContainer.append(searchResultsHeading)
+                contentContainer.append(searchResultsContainer);
                 for(const meal of searchResults.meals){
                     if (i >= 10) return;
                     const sResult = document.createElement('a');
@@ -100,15 +100,12 @@ document.addEventListener('click', hideAutoComplete);
 
 const getHomeContent = () => {
     clearPage();
-    const categoriesContainer = document.createElement('div');
     const tenRandomContainer = document.createElement('div');
     const areas = document.createElement('div');
-    categoriesContainer.classList.add('categories-list-container');
     tenRandomContainer.classList.add('tenRandom-container');
-    areas.classList.add('areasContainer');
-    wrapper.append(categoriesContainer);
-    wrapper.append(tenRandomContainer);
-    wrapper.append(areas);
+    areas.classList.add('areas-container');
+    contentContainer.append(tenRandomContainer);
+    contentContainer.append(areas);
     fetch('/fetch-home')
         .then(response => response.json())
         .then(home => {
@@ -128,22 +125,6 @@ const getHomeContent = () => {
             }
         })
         .catch(err => console.log(err));
-
-    const mealCategories = `
-        <a class="link-cat-beef" href="" onclick='getCategory("Beef"); return false;'><span>Beef</span></a>
-        <a class="link-cat-pork" href="" onclick='getCategory("Pork"); return false;'><span>Pork</span></a>
-        <a class="link-cat-lamb" href="" onclick='getCategory("Lamb"); return false;'><span>Lamb</span></a>
-        <a class="link-cat-seafood" href="" onclick='getCategory("Seafood"); return false;'><span>Seafood</span></a>
-        <a class="link-cat-chicken" href="" onclick='getCategory("Chicken"); return false;'><span>Chicken</span></a>
-        <a class="link-cat-misc" href="" onclick='getCategory("Miscellaneous"); return false;'><span>Misc.</span></a>
-        <a class="link-cat-pasta" href="" onclick='getCategory("Pasta"); return false;'><span>Pasta</span></a>
-        <a class="link-cat-dessert" href="" onclick='getCategory("Dessert"); return false;'><span>Dessert</span></a>
-        <a class="link-cat-breakfast" href="" onclick='getCategory("Breakfast"); return false;'><span>Breakfast</span></a>
-        <a class="link-cat-sides" href="" onclick='getCategory("Side"); return false;'><span>Side</span></a>
-        <a class="link-cat-vegan" href="" onclick='getCategory("Vegan"); return false;'><span>Vegan</span></a>
-        <a class="link-cat-vegetarian" href="" onclick='getCategory("Vegetarian"); return false;'><span>Vegetarian</span></a>
-    `;
-    categoriesContainer.innerHTML = mealCategories;
 
     fetch('/fetch-areas')
         .then(response => response.json())
@@ -172,7 +153,7 @@ const getCategory = (categoryId) => {
             const categoryHeading = document.createElement('h1');
             categoryHeading.classList.add('category-heading');
             categoryHeading.innerText = categoryId;
-            wrapper.append(categoryHeading);
+            contentContainer.append(categoryHeading);
             loadCategory(category);
         })
         .catch(err => console.log(err));
@@ -190,7 +171,7 @@ const getArea = (areaId) => {
             const areaHeading = document.createElement('h1');
             areaHeading.classList.add('area-heading');
             areaHeading.innerText = areaId;
-            wrapper.append(areaHeading);
+            contentContainer.append(areaHeading);
             document.title = areaId;
             loadArea(area);
         })
@@ -209,7 +190,7 @@ const loadArea = (area) =>{
         });
         areaContainer.append(itemLink);
     }
-    wrapper.append(areaContainer);
+    contentContainer.append(areaContainer);
 }
 
 const loadCategory = (category) =>{
@@ -224,7 +205,7 @@ const loadCategory = (category) =>{
         });
         categoryContainer.append(itemLink);
     }
-    wrapper.append(categoryContainer);
+    contentContainer.append(categoryContainer);
 }
 
 const getRecipe = (mealId) => {
@@ -268,12 +249,12 @@ const loadRecipe = (recipe) => {
         <p>${meal.strInstructions}</p>
     `;
 
-    wrapper.append(recipeContainer);
+    contentContainer.append(recipeContainer);
  }
 
 const clearPage = () => {
     autocomplete.style.display = 'none';
-    wrapper.innerHTML = '';
+    contentContainer.innerHTML = '';
     window.scrollTo(0,0);
  }
  
