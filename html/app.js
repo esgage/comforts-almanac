@@ -237,7 +237,7 @@ const loadRecipe = (recipe) => {
         ingredientX = 'strIngredient' + x;
         measureX = 'strMeasure' + x;
     }
-
+    const formattedInstructions = meal.strInstructions.replace(/\. /g, '.</li><li>');
     const recipeContainer = document.createElement('div');  
     recipeContainer.classList.add('recipe-container');
     recipeContainer.innerHTML = `
@@ -246,7 +246,7 @@ const loadRecipe = (recipe) => {
         <h2>Category: <a href="" onClick='getCategory("${meal.strCategory}"); return false;'>${meal.strCategory}</a></h2>
         <h2>Cuisine: <a href="" onClick='getArea("${meal.strArea}"); return false;'>${meal.strArea}</a></h2>
         ${ingredients.outerHTML}
-        <p>${meal.strInstructions}</p>
+        <ol><li>${formattedInstructions}</li></ol>
     `;
 
     contentContainer.append(recipeContainer);
