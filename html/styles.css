@@ -24,9 +24,9 @@ body{
     font-family: 'Galada';
 }
 
-.search-form{
+#search-form{
     display: block;
-    width: 350px;
+    width: 352px;
     margin: auto;
 }
 

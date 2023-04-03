@@ -55,23 +55,25 @@ const loadSearchResults = (urlPathQuery) => {
             return response.json();
         })
         .then(searchResults => {
+            clearPage();
+            if(!popStateFired){
+                history.pushState('search', null,'/search/' + query);
+            }
+            popStateFired = 0;
+            document.title = `Results for: "${query}"`;
+            const searchResultsContainer = document.createElement('div');
+            const searchResultsHeading = document.createElement('h2');
+            searchResultsContainer.classList.add('search-results-container');
+            searchResultsHeading.classList.add('search-results-heading');
+            searchResultsHeading.innerText = `Results for "${query}"`;
+            contentContainer.append(searchResultsHeading)
+            contentContainer.append(searchResultsContainer);
             if(searchResults.meals === null){
                 autocompleteList.innerHTML = "No Results";
+                searchResultsHeading.innerText = `Sorry! It looks like we have no results for "${query}"`;
             }
             else{
-                clearPage();
-                if(!popStateFired){
-                    history.pushState('search', null,'/search/' + query);
-                }
                 let i = 0;
-                document.title = `Results for: "${query}"`;
-                const searchResultsContainer = document.createElement('div');
-                const searchResultsHeading = document.createElement('h2');
-                searchResultsContainer.classList.add('search-results-container');
-                searchResultsHeading.classList.add('search-results-heading');
-                searchResultsHeading.innerText = `Results for: "${query}"`;
-                contentContainer.append(searchResultsHeading)
-                contentContainer.append(searchResultsContainer);
                 for(const meal of searchResults.meals){
                     if (i >= 10) return;
                     const sResult = document.createElement('a');
@@ -291,5 +293,9 @@ const checkUriPath = () => {
 
 checkUriPath();
 
-const searchSubmit = document.getElementById('search_submit').setAttribute('onpointerdown', 'loadSearchResults();');
+const searchForm = document.getElementById('search-form');
+searchForm.addEventListener('submit', (e)=>{
+    e.preventDefault();
+    loadSearchResults();
+});
 document.getElementById('header-logo').setAttribute('onclick', 'getHomeContent(); return false;');
