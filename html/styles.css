@@ -1,12 +1,19 @@
-*{
+body{
     color:rgb(70, 64, 59);
+    font-size: 16px;
 }
 
 a{
     text-decoration: none;
+    color:rgb(70, 64, 59);
 }
 
-h2, a{
+h1{
+    font-family: 'Galada';
+    font-size: 32px;
+}
+
+h2, a, input{
     font-family: 'Gabriela';
 }
 
@@ -21,30 +28,63 @@ body{
     text-align: center;
     width: 300px;
     margin: auto;
-    font-family: 'Galada';
 }
 
 #search-form{
     display: block;
-    width: 352px;
-    margin: auto;
+    width: 80%;
+    margin: auto auto 20px auto;
 }
 
 #search{
-    width: 300px;
+    width: calc(100% - 26px);
     box-sizing: border-box;
+    height: 28px;
+    padding: 5px;
+    border: 2px solid rgb(50, 106, 134);
+    border-radius: 5px 0 0 5px;
+    background-color: #fffdf9;
+    outline: none;
+}
+
+#search-form button{
+    border:none;
+    box-sizing: border-box;
+    color:rgb(227, 239, 242);
+    cursor: pointer;
+    border: none;
+    border-radius:0 5px 5px 0;
+    height: 28px;
+    width: 26px;
+    background-color: rgb(50, 106, 134);
+    background-image: url("/images/search_white.png");
+    background-size: 20px auto;
+    background-position: 2px;
+    background-repeat: no-repeat;
+    position: relative;
+    top: -4px;
 }
 
 #autocomplete{
-    width: 300px;
+    width: 322px;
     left: 50%;
-    transform: translateX(-175px);
+    transform: translateX(-172px) translateY(-26px);
     position: absolute;
-    background-color:blanchedalmond;
+    background-color:#fffdf9;
+    border: 2px solid rgb(50, 106, 134);
+    border-top: none;
+    box-sizing: border-box;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 30%);
 }
 
 #autocomplete a{
     display: block;
+    padding: 2px 5px;
+    border-top: 1px solid #efece7;
+}
+
+#autocomplete a:hover{
+    background-color: #e9e4dd;
 }
 
 #content-container{
@@ -55,7 +95,7 @@ body{
     display: flex;
     row-gap: 25px;
     overflow-y: scroll;
-    /*grid-template-columns: repeat(4, 1fr);*/
+    margin: 0 0 15px 0;
 }
 
 .categories-container > a{
@@ -97,6 +137,7 @@ body{
     background-color: rgb(50, 106, 134);
     overflow: hidden;
     border-radius: 3px;
+    cursor: pointer;
 }
 
 .itemLink h2{
@@ -121,8 +162,16 @@ body{
     text-align: center;
 }
 
+.areas-container a{
+    cursor: pointer;
+}
 
 @media (min-width:480px){
+
+    #search-form{
+        width: 352px;;
+    }
+
     .tenRandom-container, .category-container, .area-container, .search-results-container{
         grid-template-columns: repeat(3, 1fr);
     }
@@ -139,6 +188,9 @@ body{
     }
     .tenRandom-container a:nth-child(9){
         display: none;
+    }
+    .categories-container{
+        overflow: hidden;
     }
 
 }

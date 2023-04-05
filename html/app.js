@@ -75,7 +75,7 @@ const loadSearchResults = (urlPathQuery) => {
             else{
                 let i = 0;
                 for(const meal of searchResults.meals){
-                    if (i >= 10) return;
+                    if (i >= 30) return;
                     const sResult = document.createElement('a');
                     sResult.classList.add('itemLink');
                     sResult.href = '';
