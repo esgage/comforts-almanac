@@ -1,8 +1,59 @@
 const contentContainer = document.getElementById('content-container');
 const searchInput = document.getElementById('search');
 const autocompleteList = document.getElementById('autocomplete');
-
 let popStateFired = 0;
+let navToggled = 0;
+
+const navToggleBtn = document.getElementById('hamburger-tgl');
+const navWrapper = document.getElementById('nav-wrapper');
+
+const toggleNav = () => {
+    navToggleBtn.classList.toggle('x');
+    navWrapper.classList.toggle('open');
+    if(!navToggled){
+        navToggled = 1;
+    } else {
+        navToggled = 0;
+    }
+}
+
+navToggleBtn.addEventListener('click', ()=>{
+    toggleNav();
+});
+
+const navAreasContainer = document.querySelector('.areas');
+fetch('/fetch-areas')
+.then(response => response.json())
+.then(areaList =>{
+    for(const area of areaList.meals){
+        const itemLink = document.createElement('a');
+        itemLink.classList.add('area');
+        itemLink.innerHTML=area.strArea;
+        itemLink.setAttribute('onclick', 'getArea(\'' + area.strArea + '\'); return false;');
+        navAreasContainer.append(itemLink);
+    }
+})
+.catch(err => console.log(err));
+
+const catDropDownTgl = document.querySelector('.cat-dd-tgl');
+catDropDownTgl.addEventListener('click', ()=>{
+    catDropDownTgl.classList.toggle('open');
+});
+
+const areasDropDownTgl = document.querySelector('.areas-dd-tgl');
+areasDropDownTgl.addEventListener('click', ()=>{
+    areasDropDownTgl.classList.toggle('open');
+});
+
+const exitNav = (event) => {
+    if(event.target.matches('#nav-wrapper *')){
+        console.log('matches ' + event.target);
+        return;
+    }
+    toggleNav();
+}
+
+navWrapper.addEventListener('click', exitNav);
 
 const debounce = (func, delay) => {
     let timeoutId;
@@ -255,6 +306,10 @@ const loadRecipe = (recipe) => {
  }
 
 const clearPage = () => {
+    console.log('clearPage(), navToggled = ' + navToggled);
+    if(navToggled){
+        toggleNav();
+    }
     autocomplete.style.display = 'none';
     contentContainer.innerHTML = '';
     window.scrollTo(0,0);
