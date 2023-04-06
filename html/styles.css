@@ -1,3 +1,7 @@
+.overflow-hidden{
+    overflow: hidden;
+}
+
 body{
     color:rgb(70, 64, 59);
     font-size: 16px;
@@ -21,22 +25,45 @@ h2, h3, a, input{
     font-family: 'Gabriela';
 }
 
-.hamburger-wrapper{
-    overflow-x: hidden;
-}
-
 #hamburger-tgl{
-    height: 50px;
-    width: 50px;
-    background-color: crimson;
+    height: 30px;
+    width: 30px;
     position: absolute;
     right: 10px;
     top: 10px;
     z-index: 20;
+    cursor: pointer;
 }
 
-#hamburger-tgl.x{
-    background-color: midnightblue;
+.line{
+    display: block;
+    background-color: teal;
+    height: 6px;
+    width:30px;
+    left:0;
+    border-radius: 3px;
+    position: absolute;
+    transition: opacity 0.3s ease, left ease 0.5s, transform ease 0.5s;
+}
+
+.line:nth-child(1){top: 0; transform-origin: 0 0;}
+.line:nth-child(2){top: 12px;}
+.line:nth-child(3){top: 24px; transform-origin: 0 100%;}
+
+#hamburger-tgl.x .line:nth-child(1){
+    width: 36px;
+    left: 4px;
+    transform: rotate(45deg);
+}
+
+#hamburger-tgl.x .line:nth-child(2){
+    opacity: 0;
+}
+
+#hamburger-tgl.x .line:nth-child(3){
+    width: 36px;
+    left: 4px;
+    transform: rotate(-45deg);
 }
 
 #nav-wrapper{
@@ -45,11 +72,15 @@ h2, h3, a, input{
     top: 0;
     width: 0;
     height: 0;
+    opacity: 0;
+    z-index: 9;
     background-color: rgba(0, 0, 0, 30%);
     overflow-x: hidden;
+    transition: opacity ease 0.3s;
 }
 
 #nav-wrapper.open{
+    opacity: 1;
     width: 100%;
     height: 100%;
 }
@@ -69,6 +100,7 @@ h2, h3, a, input{
     z-index: 10;
     box-sizing: border-box;
     padding: 55px 5px;
+    transition: right ease 0.6s;
 }
 
 .nav-container a{
@@ -80,17 +112,12 @@ h2, h3, a, input{
     background-repeat: no-repeat;
 }
 
+.nav-container a:hover{
+    background-color: #e9e4dd;
+}
+
 .nav-container .categories a{
     padding: 3px 5px 2px 60px;
-}
-
-.cat-dd-tgl + div, .areas-dd-tgl + div {
-    height: 0;
-    overflow: hidden;
-}
-
-.cat-dd-tgl.open + div, .areas-dd-tgl.open + div {
-    height: auto;
 }
 
 #header-logo{

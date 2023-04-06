@@ -1,6 +1,7 @@
 const contentContainer = document.getElementById('content-container');
 const searchInput = document.getElementById('search');
 const autocompleteList = document.getElementById('autocomplete');
+const body = document.querySelector('body');
 let popStateFired = 0;
 let navToggled = 0;
 
@@ -10,6 +11,7 @@ const navWrapper = document.getElementById('nav-wrapper');
 const toggleNav = () => {
     navToggleBtn.classList.toggle('x');
     navWrapper.classList.toggle('open');
+    body.classList.toggle('overflow-hidden');
     if(!navToggled){
         navToggled = 1;
     } else {
@@ -19,30 +21,6 @@ const toggleNav = () => {
 
 navToggleBtn.addEventListener('click', ()=>{
     toggleNav();
-});
-
-const navAreasContainer = document.querySelector('.areas');
-fetch('/fetch-areas')
-.then(response => response.json())
-.then(areaList =>{
-    for(const area of areaList.meals){
-        const itemLink = document.createElement('a');
-        itemLink.classList.add('area');
-        itemLink.innerHTML=area.strArea;
-        itemLink.setAttribute('onclick', 'getArea(\'' + area.strArea + '\'); return false;');
-        navAreasContainer.append(itemLink);
-    }
-})
-.catch(err => console.log(err));
-
-const catDropDownTgl = document.querySelector('.cat-dd-tgl');
-catDropDownTgl.addEventListener('click', ()=>{
-    catDropDownTgl.classList.toggle('open');
-});
-
-const areasDropDownTgl = document.querySelector('.areas-dd-tgl');
-areasDropDownTgl.addEventListener('click', ()=>{
-    areasDropDownTgl.classList.toggle('open');
 });
 
 const exitNav = (event) => {
