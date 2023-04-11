@@ -6,4 +6,5 @@ recipe_public.key
 design_files
 default
 ignore
+node_modules
 .vscode
