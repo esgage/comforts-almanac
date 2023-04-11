@@ -7,7 +7,6 @@ let navToggled = 0;
 
 const navToggleBtn = document.getElementById('hamburger-tgl');
 const navWrapper = document.getElementById('nav-wrapper');
-
 const toggleNav = () => {
     navToggleBtn.classList.toggle('x');
     navWrapper.classList.toggle('open');
@@ -25,7 +24,6 @@ navToggleBtn.addEventListener('click', ()=>{
 
 const exitNav = (event) => {
     if(event.target.matches('#nav-wrapper *')){
-        console.log('matches ' + event.target);
         return;
     }
     toggleNav();
@@ -168,7 +166,12 @@ const getHomeContent = () => {
                 areas.append(itemLink);
             }
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log('error = ' + err);
+            const errorNotice = document.createElement('h1');
+            errorNotice.innerHTML = `Uh oh.. <br>It looks like our database may be down. Please give us some time and try again later!`;
+            contentContainer.append(errorNotice);
+        });
 }
 
 const getCategory = (categoryId) => {
@@ -284,7 +287,6 @@ const loadRecipe = (recipe) => {
  }
 
 const clearPage = () => {
-    console.log('clearPage(), navToggled = ' + navToggled);
     if(navToggled){
         toggleNav();
     }
