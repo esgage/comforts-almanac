@@ -107,18 +107,33 @@ h2, h3, a, input{
     display: block;
     padding: 3px 5px 2px 30px;
     border-top: 1px solid #efece7;
-    background-position: 30px 0;
-    background-size: auto 100%;
-    background-repeat: no-repeat;
 }
 
 .nav-container a:hover{
     background-color: #e9e4dd;
 }
 
-.nav-container .categories a{
-    padding: 3px 5px 2px 60px;
+.nav-container a::before{
+    content: " ";
+    display: inline-block;
+    height:20px;
+    width:20px;
+    background-size:auto 40px;
+    margin: 3px 10px -3px 0;
 }
+
+.nav-container .link-cat-beef::before{ background-position:0 0;}
+.nav-container .link-cat-pork::before{ background-position:-20px 0;}
+.nav-container .link-cat-lamb::before{ background-position:-60px 0;}
+.nav-container .link-cat-seafood::before{ background-position:-40px 0;}
+.nav-container .link-cat-chicken::before{ background-position:-140px 0;}
+.nav-container .link-cat-misc::before{ background-position:-80px 0;}
+.nav-container .link-cat-pasta::before{ background-position:-100px 0;}
+.nav-container .link-cat-dessert::before{ background-position:-120px 0;}
+.nav-container .link-cat-breakfast::before{ background-position:-180px 0;}
+.nav-container .link-cat-sides::before{ background-position:-160px 0;}
+.nav-container .link-cat-vegan::before{ background-position:-200px 0;}
+.nav-container .link-cat-vegetarian::before{ background-position:-220px 0;}
 
 #header-logo{
     display: block;
@@ -197,33 +212,42 @@ h2, h3, a, input{
     z-index: 0;
 }
 
-.categories-container > a{
+.categories-container a{
     min-height: 100px;
     min-width: 100px;
-    background-size: 80% auto;
-    background-position: top center;
-    background-repeat: no-repeat;
     display: flex;
-    z-index: 0;
+    flex-direction: column;
     justify-content: center;
+    z-index: 0;
 }
 
-.categories-container > a span{
-    align-self: flex-end;
+.categories-container a::before{
+    content: " ";
+    height: 80px;
+    width: 80px;
+    margin: 0 10px 0 10px;
+    background-size: auto 160px;
 }
 
-.link-cat-beef{ background-image: url("/images/beef_600.png");}
-.link-cat-pork{ background-image: url("/images/pork_600.png");}
-.link-cat-lamb{ background-image: url("/images/lamb_600.png");}
-.link-cat-seafood{ background-image: url("/images/seafood_600.png");}
-.link-cat-chicken{ background-image: url("/images/chicken_600.png");}
-.link-cat-misc{ background-image: url("/images/misc_600.png");}
-.link-cat-pasta{ background-image: url("/images/pasta_600.png");}
-.link-cat-dessert{ background-image: url("/images/dessert_600.png");}
-.link-cat-breakfast{ background-image: url("/images/breakfast_600.png");}
-.link-cat-sides{ background-image: url("/images/sides_600.png");}
-.link-cat-vegan{ background-image: url("/images/vegan_600.png");}
-.link-cat-vegetarian{ background-image: url("/images/vegetarian_600.png");}
+.categories-container span{
+    display: block;
+    text-align: center;
+}
+
+.nav-categories a::before, .categories-container a::before{ background-image: url("/images/categories_sprite_160.png");}
+
+.categories-container .link-cat-beef::before{ background-position:0 0;}
+.categories-container .link-cat-pork::before{ background-position:-80px 0;}
+.categories-container .link-cat-lamb::before{ background-position:-240px 0;}
+.categories-container .link-cat-seafood::before{ background-position:-160px 0;}
+.categories-container .link-cat-chicken::before{ background-position:-560px 0;}
+.categories-container .link-cat-misc::before{ background-position:-320px 0;}
+.categories-container .link-cat-pasta::before{ background-position:-400px 0;}
+.categories-container .link-cat-dessert::before{ background-position:-480px 0;}
+.categories-container .link-cat-breakfast::before{ background-position:-720px 0;}
+.categories-container .link-cat-sides::before{ background-position:-640px 0;}
+.categories-container .link-cat-vegan::before{ background-position:-800px 0;}
+.categories-container .link-cat-vegetarian::before{ background-position:-880px 0;}
 
 .tenRandom-container, .category-container, .area-container, .search-results-container{
     display: grid;
