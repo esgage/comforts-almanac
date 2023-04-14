@@ -10,6 +10,9 @@ const navWrapper = document.getElementById('nav-wrapper');
 const toggleNav = () => {
     navToggleBtn.classList.toggle('x');
     navWrapper.classList.toggle('open');
+    scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    body.style.paddingRight = scrollbarWidth + 'px';
+    navToggleBtn.style.paddingRight = scrollbarWidth + 'px';
     body.classList.toggle('overflow-hidden');
     if(!navToggled){
         navToggled = 1;
