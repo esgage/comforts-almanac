@@ -116,10 +116,20 @@ h2, h3, a, input{
 .nav-container a::before{
     content: " ";
     display: inline-block;
+    margin: 3px 10px -3px 0;
+}
+
+.nav-container .nav-categories a::before{
+    background-size:auto 40px;
     height:20px;
     width:20px;
-    background-size:auto 40px;
-    margin: 3px 10px -3px 0;
+}
+.nav-container .areas a::before{
+    background: url("/images/flagSprite60.png");
+    height:21px;
+    width:30px;
+    background-repeat: no-repeat;
+    background-size: 30px auto;
 }
 
 .nav-container .link-cat-beef::before{ background-position:0 0;}
@@ -134,6 +144,34 @@ h2, h3, a, input{
 .nav-container .link-cat-sides::before{ background-position:-160px 0;}
 .nav-container .link-cat-vegan::before{ background-position:-200px 0;}
 .nav-container .link-cat-vegetarian::before{ background-position:-220px 0;}
+
+.nav-container .area.us::before{background-position: 0 -189px;}
+.nav-container .area.gb::before{background-position: 0 -546px;}
+.nav-container .area.ca::before{background-position: 0 -126px;}
+.nav-container .area.cn::before{background-position: 0 -210px;}
+.nav-container .area.hr::before{background-position: 0 -336px;}
+.nav-container .area.aw::before{background-position: 0 -483px;}
+.nav-container .area.eg::before{background-position: 0 -21px;}
+.nav-container .area.fr::before{background-position: 0 -357px;}
+.nav-container .area.gr::before{background-position: 0 -378px;}
+.nav-container .area.in::before{background-position: 0 -399px;}
+.nav-container .area.ie::before{background-position: 0 -231px;}
+.nav-container .area.it::before{background-position: 0 -420px;}
+.nav-container .area.jm::before{background-position: 0 -147px;}
+.nav-container .area.jp::before{background-position: 0 -252px;}
+.nav-container .area.ke::before{background-position: 0 -42px;}
+.nav-container .area.my::before{background-position: 0 -273px;}
+.nav-container .area.mx::before{background-position: 0 -399px;}
+.nav-container .area.ma::before{background-position: 0 -63px;}
+.nav-container .area.pl::before{background-position: 0 -441px;}
+.nav-container .area.pt::before{background-position: 0 -462px;}
+.nav-container .area.ru::before{background-position: 0 -483px;}
+.nav-container .area.es::before{background-position: 0 -504px;}
+.nav-container .area.th::before{background-position: 0 -294px;}
+.nav-container .area.tn::before{background-position: 0 -84px;}
+.nav-container .area.tr::before{background-position: 0 -525px;}
+.nav-container .area.unknown::before{background-position: 0 0;}
+.nav-container .area.vn::before{background-position: 0 -315px;}
 
 #header-logo{
     display: block;
