@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>Comforts Almanac</title>
+        <meta name="description" content="A Simple collection of comfort recipes.">
         <link rel="stylesheet" href="/styles.css">
         <meta name="viewport" content="width=device-width">
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,7 +36,7 @@
                     </div>
                     <h3 class="areas-dd-tgl">Cuisines</h3>
                     <div class="areas">
-                        <a class="area" onclick="getArea('American'); return false;">American</a>
+                        <a class="area" onclick="getArea('American'); return false;">&#x1F1F8; American</a>
                         <a class="area" onclick="getArea('British'); return false;">British</a>
                         <a class="area" onclick="getArea('Canadian'); return false;">Canadian</a>
                         <a class="area" onclick="getArea('Chinese'); return false;">Chinese</a>
@@ -67,7 +68,7 @@
             </div>
         <a href="" id="header-logo"><h1>Comforts <br>Almanac</h1></a>
         <form id="search-form" autocomplete="off">
-            <input id="search"><button type="submit"></button>
+            <input id="search" aria-label="search-input"><button type="submit" aria-label="search-submit"></button>
         </form>
         <div id="autocomplete"></div>
         <div class="categories-container">

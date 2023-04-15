@@ -37,7 +37,7 @@ h2, h3, a, input{
 
 .line{
     display: block;
-    background-color: teal;
+    background-color: rgb(50, 106, 134);
     height: 6px;
     width:30px;
     left:0;
@@ -151,8 +151,9 @@ h2, h3, a, input{
 #search{
     width: calc(100% - 26px);
     box-sizing: border-box;
-    height: 28px;
+    height: 44px;
     padding: 5px;
+    font-size: 18px;
     border: 2px solid rgb(50, 106, 134);
     border-radius: 5px 0 0 5px;
     background-color: #fffdf9;
@@ -165,8 +166,8 @@ h2, h3, a, input{
     cursor: pointer;
     border: 2px solid rgb(50, 106, 134);
     border-radius:0 5px 5px 0;
-    height: 28px;
-    width: 26px;
+    height: 44px;
+    width: 46px;
     background-color: rgb(50, 106, 134);
     background-image: url("/images/search_white.png");
     background-size: 20px auto;
@@ -210,11 +211,13 @@ h2, h3, a, input{
     margin: 0 0 15px 0;
     position: relative;
     z-index: 0;
+    height:101px;
+    width: 100%;
 }
 
 .categories-container a{
-    min-height: 100px;
-    min-width: 100px;
+    height: 101px;
+    width: 100px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -270,11 +273,12 @@ h2, h3, a, input{
 
 .itemLink img{
     width: 100%;
+    height: auto;
 }
 
 .areas-container .area{
     display: inline-block;
-    margin:5px;
+    margin:10px;
 }
 
 .recipe-container img{

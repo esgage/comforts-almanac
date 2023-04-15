@@ -110,7 +110,7 @@ const loadSearchResults = (urlPathQuery) => {
                     sResult.classList.add('itemLink');
                     sResult.href = '';
                     sResult.setAttribute('onclick', 'getRecipe(' + meal.idMeal + '); return false;');
-                    sResult.innerHTML = `<img src="${meal.strMealThumb}"><h2>${meal.strMeal}</h2>`;
+                    sResult.innerHTML = `<img src="${meal.strMealThumb}" alt="${meal.strMeal}" height="600" width="600"><h2>${meal.strMeal}</h2>`;
                     searchResultsContainer.append(sResult);
                     i++;
                 }
@@ -149,7 +149,7 @@ const getHomeContent = () => {
             for(const meal of home.meals){
                 const itemLink = document.createElement('a');
                 itemLink.classList.add('itemLink');
-                itemLink.innerHTML = `<img src="${meal.strMealThumb}"><h2>${meal.strMeal}</h2>`;
+                itemLink.innerHTML = `<img src="${meal.strMealThumb}" alt="${meal.strMeal}" height="600" width="600"><h2>${meal.strMeal}</h2>`;
                 itemLink.addEventListener('click', () => {
                     getRecipe(meal.idMeal);
                 });
@@ -221,7 +221,7 @@ const loadArea = (area) =>{
     for(const meal of area.meals){
         const itemLink = document.createElement('div');
         itemLink.classList.add('itemLink');
-        itemLink.innerHTML = `<img src="${meal.strMealThumb}"><h2>${meal.strMeal}</h2>`;
+        itemLink.innerHTML = `<img src="${meal.strMealThumb}" alt="${meal.strMeal}" height="600" width="600"><h2>${meal.strMeal}</h2>`;
         itemLink.addEventListener('click', () => {
             getRecipe(meal.idMeal);
         });
@@ -236,7 +236,7 @@ const loadCategory = (category) =>{
     for(const meal of category.meals){
         const itemLink = document.createElement('div');
         itemLink.classList.add('itemLink');
-        itemLink.innerHTML = `<img src="${meal.strMealThumb}"><h2>${meal.strMeal}</h2>`;
+        itemLink.innerHTML = `<img src="${meal.strMealThumb}" alt="${meal.strMeal}" height="600" width="600"><h2>${meal.strMeal}</h2>`;
         itemLink.addEventListener('click', () => {
             getRecipe(meal.idMeal);
         });
@@ -279,7 +279,7 @@ const loadRecipe = (recipe) => {
     recipeContainer.classList.add('recipe-container');
     recipeContainer.innerHTML = `
         <h1>${meal.strMeal}</h1>
-        <img src="${meal.strMealThumb}">
+        <img src="${meal.strMealThumb}" alt="${meal.strMeal}" height="600" width="600">
         <h2>Category: <a href="" onClick='getCategory("${meal.strCategory}"); return false;'>${meal.strCategory}</a></h2>
         <h2>Cuisine: <a href="" onClick='getArea("${meal.strArea}"); return false;'>${meal.strArea}</a></h2>
         ${ingredients.outerHTML}
