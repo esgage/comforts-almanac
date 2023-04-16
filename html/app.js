@@ -157,24 +157,6 @@ const getHomeContent = () => {
             }
         })
         .catch(err => console.log(err));
-
-    fetch('/fetch-areas')
-        .then(response => response.json())
-        .then(areaList =>{
-            for(const area of areaList.meals){
-                const itemLink = document.createElement('a');
-                itemLink.classList.add('area');
-                itemLink.innerHTML=area.strArea;
-                itemLink.setAttribute('onclick', 'getArea(\'' + area.strArea + '\'); return false;');
-                areas.append(itemLink);
-            }
-        })
-        .catch(err => {
-            console.log('error = ' + err);
-            const errorNotice = document.createElement('h1');
-            errorNotice.innerHTML = `Uh oh.. <br>It looks like our database may be down. Please give us some time and try again later!`;
-            contentContainer.append(errorNotice);
-        });
 }
 
 const getCategory = (categoryId) => {

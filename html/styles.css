@@ -119,12 +119,19 @@ h2, h3, a, input{
     margin: 3px 10px -3px 0;
 }
 
+.areas-container a::before{
+    content: " ";
+    display: inline-block;
+	/*background-clip: content-box;
+	border-radius: 50%;*/
+}
+
 .nav-container .nav-categories a::before{
     background-size:auto 40px;
     height:20px;
     width:20px;
 }
-.nav-container .areas a::before{
+.nav-container .areas a::before, .areas-container a::before{
     background: url("/images/flagSprite60.png");
     height:21px;
     width:30px;
@@ -145,33 +152,33 @@ h2, h3, a, input{
 .nav-container .link-cat-vegan::before{ background-position:-200px 0;}
 .nav-container .link-cat-vegetarian::before{ background-position:-220px 0;}
 
-.nav-container .area.us::before{background-position: 0 -189px;}
-.nav-container .area.gb::before{background-position: 0 -546px;}
-.nav-container .area.ca::before{background-position: 0 -126px;}
-.nav-container .area.cn::before{background-position: 0 -210px;}
-.nav-container .area.hr::before{background-position: 0 -336px;}
-.nav-container .area.aw::before{background-position: 0 -483px;}
-.nav-container .area.eg::before{background-position: 0 -21px;}
-.nav-container .area.fr::before{background-position: 0 -357px;}
-.nav-container .area.gr::before{background-position: 0 -378px;}
-.nav-container .area.in::before{background-position: 0 -399px;}
-.nav-container .area.ie::before{background-position: 0 -231px;}
-.nav-container .area.it::before{background-position: 0 -420px;}
-.nav-container .area.jm::before{background-position: 0 -147px;}
-.nav-container .area.jp::before{background-position: 0 -252px;}
-.nav-container .area.ke::before{background-position: 0 -42px;}
-.nav-container .area.my::before{background-position: 0 -273px;}
-.nav-container .area.mx::before{background-position: 0 -399px;}
-.nav-container .area.ma::before{background-position: 0 -63px;}
-.nav-container .area.pl::before{background-position: 0 -441px;}
-.nav-container .area.pt::before{background-position: 0 -462px;}
-.nav-container .area.ru::before{background-position: 0 -483px;}
-.nav-container .area.es::before{background-position: 0 -504px;}
-.nav-container .area.th::before{background-position: 0 -294px;}
-.nav-container .area.tn::before{background-position: 0 -84px;}
-.nav-container .area.tr::before{background-position: 0 -525px;}
-.nav-container .area.unknown::before{background-position: 0 0;}
-.nav-container .area.vn::before{background-position: 0 -315px;}
+a.area.us::before{background-position: center -189px;}
+a.area.gb::before{background-position: center -546px;}
+a.area.ca::before{background-position: center -126px;}
+a.area.cn::before{background-position: center -210px;}
+a.area.hr::before{background-position: center -336px;}
+a.area.aw::before{background-position: center -483px;}
+a.area.eg::before{background-position: center -21px;}
+a.area.fr::before{background-position: center -357px;}
+a.area.gr::before{background-position: center -378px;}
+a.area.in::before{background-position: center -399px;}
+a.area.ie::before{background-position: center -231px;}
+a.area.it::before{background-position: center -420px;}
+a.area.jm::before{background-position: center -147px;}
+a.area.jp::before{background-position: center -252px;}
+a.area.ke::before{background-position: center -42px;}
+a.area.my::before{background-position: center -273px;}
+a.area.mx::before{background-position: center -399px;}
+a.area.ma::before{background-position: center -63px;}
+a.area.pl::before{background-position: center -441px;}
+a.area.pt::before{background-position: center -462px;}
+a.area.ru::before{background-position: center -483px;}
+a.area.es::before{background-position: center -504px;}
+a.area.th::before{background-position: center -294px;}
+a.area.tn::before{background-position: center -84px;}
+a.area.tr::before{background-position: center -525px;}
+a.area.unknown::before{background-position: center 0;}
+a.area.vn::before{background-position: center -315px;}
 
 #header-logo{
     display: block;
