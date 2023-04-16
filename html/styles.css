@@ -113,30 +113,13 @@ h2, h3, a, input{
     background-color: #e9e4dd;
 }
 
-.nav-container a::before{
+.nav-container .nav-categories a::before{
     content: " ";
     display: inline-block;
     margin: 3px 10px -3px 0;
-}
-
-.areas-container a::before{
-    content: " ";
-    display: inline-block;
-	/*background-clip: content-box;
-	border-radius: 50%;*/
-}
-
-.nav-container .nav-categories a::before{
     background-size:auto 40px;
     height:20px;
     width:20px;
-}
-.nav-container .areas a::before, .areas-container a::before{
-    background: url("/images/flagSprite60.png");
-    height:21px;
-    width:30px;
-    background-repeat: no-repeat;
-    background-size: 30px auto;
 }
 
 .nav-container .link-cat-beef::before{ background-position:0 0;}
@@ -151,34 +134,6 @@ h2, h3, a, input{
 .nav-container .link-cat-sides::before{ background-position:-160px 0;}
 .nav-container .link-cat-vegan::before{ background-position:-200px 0;}
 .nav-container .link-cat-vegetarian::before{ background-position:-220px 0;}
-
-a.area.us::before{background-position: center -189px;}
-a.area.gb::before{background-position: center -546px;}
-a.area.ca::before{background-position: center -126px;}
-a.area.cn::before{background-position: center -210px;}
-a.area.hr::before{background-position: center -336px;}
-a.area.aw::before{background-position: center -483px;}
-a.area.eg::before{background-position: center -21px;}
-a.area.fr::before{background-position: center -357px;}
-a.area.gr::before{background-position: center -378px;}
-a.area.in::before{background-position: center -399px;}
-a.area.ie::before{background-position: center -231px;}
-a.area.it::before{background-position: center -420px;}
-a.area.jm::before{background-position: center -147px;}
-a.area.jp::before{background-position: center -252px;}
-a.area.ke::before{background-position: center -42px;}
-a.area.my::before{background-position: center -273px;}
-a.area.mx::before{background-position: center -399px;}
-a.area.ma::before{background-position: center -63px;}
-a.area.pl::before{background-position: center -441px;}
-a.area.pt::before{background-position: center -462px;}
-a.area.ru::before{background-position: center -483px;}
-a.area.es::before{background-position: center -504px;}
-a.area.th::before{background-position: center -294px;}
-a.area.tn::before{background-position: center -84px;}
-a.area.tr::before{background-position: center -525px;}
-a.area.unknown::before{background-position: center 0;}
-a.area.vn::before{background-position: center -315px;}
 
 #header-logo{
     display: block;
