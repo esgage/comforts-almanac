@@ -2,17 +2,24 @@
     overflow: hidden;
 }
 
+:root{
+    --blue: rgb(50, 106, 134);
+    --text-grey: rgb(70, 64, 59);
+    --beige:rgb(232, 227, 223);
+    --text-light: rgb(227, 239, 242);
+}
+
 body{
-    color:rgb(70, 64, 59);
+    color:var(--text-grey);
     font-size: 16px;
     max-width: 1200px;
     margin: auto;
-    background-color: rgb(232, 227, 223);
+    background-color: var(--beige);
 }
 
 a{
     text-decoration: none;
-    color:rgb(70, 64, 59);
+    color:var(--text-grey);
     cursor: pointer;
 }
 
@@ -37,7 +44,7 @@ h2, h3, a, input{
 
 .line{
     display: block;
-    background-color: rgb(50, 106, 134);
+    background-color: var(--blue);
     height: 6px;
     width:30px;
     left:0;
@@ -94,7 +101,7 @@ h2, h3, a, input{
     right: -300px;
     top: 0px;
     background-color:#fffdf9;
-    border-left: 2px solid rgb(50, 106, 134);
+    border-left: 2px solid var(--blue);
     width: 300px;
     min-height: 100%;
     z-index: 10;
@@ -134,9 +141,11 @@ h2, h3, a, input{
 .nav-container .areas a::before, .areas-container a::before{
     background: url("/images/flagSprite60.png");
     height:21px;
-    width:30px;
+    width:21px;
     background-repeat: no-repeat;
     background-size: 30px auto;
+    margin:0 5px -5px 0;
+    border-radius: 12px;
 }
 
 .nav-container .link-cat-beef::before{ background-position:0 0;}
@@ -199,7 +208,7 @@ a.area.vn::before{background-position: center -315px;}
     height: 44px;
     padding: 5px;
     font-size: 18px;
-    border: 2px solid rgb(50, 106, 134);
+    border: 2px solid var(--blue);
     border-radius: 5px 0 0 5px;
     background-color: #fffdf9;
     outline: none;
@@ -207,15 +216,14 @@ a.area.vn::before{background-position: center -315px;}
 
 #search-form button{
     box-sizing: border-box;
-    color:rgb(227, 239, 242);
     cursor: pointer;
-    border: 2px solid rgb(50, 106, 134);
+    border: 2px solid var(--blue);
     border-radius:0 5px 5px 0;
     height: 44px;
     width: 46px;
-    background-color: rgb(50, 106, 134);
+    background-color: var(--blue);
     background-image: url("/images/search_white.png");
-    background-size: 20px auto;
+    background-size: 36px auto;
     background-position: 0 2px;
     background-repeat: no-repeat;
 }
@@ -228,7 +236,7 @@ a.area.vn::before{background-position: center -315px;}
     position: absolute;
     background-color:#fffdf9;
     transform: translate3d(0, 0, 200px);
-    border: 2px solid rgb(50, 106, 134);
+    border: 2px solid var(--blue);
     border-top: none;
     box-sizing: border-box;
     box-shadow: 0 3px 3px rgba(0, 0, 0, 30%);
@@ -247,6 +255,7 @@ a.area.vn::before{background-position: center -315px;}
 
 #content-container{
     padding: 0 5px;
+    margin-bottom: 10px;
 }
 
 .categories-container{
@@ -297,6 +306,10 @@ a.area.vn::before{background-position: center -315px;}
 .categories-container .link-cat-vegan::before{ background-position:-800px 0;}
 .categories-container .link-cat-vegetarian::before{ background-position:-880px 0;}
 
+#content-container{
+    min-height: 600px;
+}
+
 .tenRandom-container, .category-container, .area-container, .search-results-container{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -306,14 +319,14 @@ a.area.vn::before{background-position: center -315px;}
 .itemLink{
     text-align: center;
     font-size: 10px;
-    background-color: rgb(50, 106, 134);
+    background-color: var(--blue);
     overflow: hidden;
     border-radius: 3px;
     cursor: pointer;
 }
 
 .itemLink h2{
-    color:rgb(227, 239, 242);
+    color:var(--text-light);
 }
 
 .itemLink img{
@@ -321,22 +334,29 @@ a.area.vn::before{background-position: center -315px;}
     height: auto;
 }
 
-.areas-container .area{
-    display: inline-block;
-    margin:10px;
-}
-
 .recipe-container img{
     max-width: 100%;
+    height: auto;
     border-radius: 3px;
 }
 
 .areas-container{
-    text-align: center;
+    text-align: left;
+    display: grid;
+    grid-template-columns:  1fr 1fr;
+    grid-auto-rows: 45px;
+    gap: 5px;
+    padding:0 5px 0 5px;
 }
 
 .areas-container a{
+    display: flex;
+    align-items: center;
     cursor: pointer;
+    /*display: inline-block;*/
+    background-color: rgb(217, 201, 189);
+    padding: 2px 5px 2px 10px;
+    border-radius: 5px;
 }
 
 @media (min-width:480px){
@@ -349,17 +369,27 @@ a.area.vn::before{background-position: center -315px;}
         display: none;
     }
 
+    .areas-container{
+        grid-template-columns:  1fr 1fr 1fr;
+    }
+
 }
 
 @media (min-width: 1200px){
     .tenRandom-container, .category-container, .area-container, .search-results-container{
         grid-template-columns: repeat(4, 1fr);
     }
+
     .tenRandom-container a:nth-child(9){
         display: none;
     }
+
     .categories-container{
         overflow: hidden;
+    }
+    
+    .areas-container{
+        grid-template-columns:  1fr 1fr 1fr 1fr;
     }
 
 }
