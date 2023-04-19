@@ -25,11 +25,24 @@ a{
 
 h1{
     font-family: 'Galada';
-    font-size: 32px;
+    text-align: center;
+    font-size: 40px;
+    height: 60px;
+    letter-spacing: 2px;
+    text-transform: capitalize;
+    border-top: 3px solid var(--text-grey);
+    border-bottom: 3px solid var(--text-grey);
 }
 
-h2, h3, a, input{
+h2, h3, a, input, p, li{
     font-family: 'Gabriela';
+}
+
+#header-logo h1{
+    font-size: 32px;
+    height: auto;
+    letter-spacing: normal;
+    border:none;
 }
 
 #hamburger-tgl{
@@ -144,7 +157,7 @@ h2, h3, a, input{
     width:21px;
     background-repeat: no-repeat;
     background-size: 30px auto;
-    margin:0 5px -5px 0;
+    margin:0 10px -5px 0;
     border-radius: 12px;
 }
 
@@ -353,10 +366,16 @@ a.area.vn::before{background-position: center -315px;}
     display: flex;
     align-items: center;
     cursor: pointer;
-    /*display: inline-block;*/
     background-color: rgb(217, 201, 189);
     padding: 2px 5px 2px 10px;
     border-radius: 5px;
+}
+
+/* Recipe page */
+
+.recipe-container{
+    display: grid;
+    grid-template-columns: 1fr;
 }
 
 @media (min-width:480px){
@@ -390,6 +409,70 @@ a.area.vn::before{background-position: center -315px;}
     
     .areas-container{
         grid-template-columns:  1fr 1fr 1fr 1fr;
+    }
+
+    .recipe-container{
+        grid-template-columns: repeat(6, 1fr);
+        column-gap:40px;
+    }
+
+    .recipe-container h1{
+        grid-column: 1 / 7;
+        background-color: rgb(50, 106, 134);
+        color: var(--text-light);
+        border: none;
+      }
+    }
+
+    .recipe-container .recipe-img{
+        grid-column: 1 /4;
+        grid-row: 2 / 5;
+    }
+
+    .recipe-classification{
+        grid-column: 4 / 7;
+        grid-row: 2 / 3;
+    }
+
+    .recipe-classification h2:first-child{
+        margin-top: 0;
+    }
+
+    .recipe-ingredients{
+        grid-column: 4 / 7;
+        grid-row: 3 / 5;
+    }
+
+    .recipe-ingredients ul{
+        padding-left: 0;
+    }
+
+    .recipe-ingredients li{
+        margin: 0 0 15px 0;
+        border-bottom: 2px solid var(--text-grey);
+        list-style-type: none;
+    }
+
+    .recipe-instructions{
+        grid-column: 1 / 7;
+        column-count: 2;
+        margin-top: 40px;
+    }
+
+    .recipe-instructions ol{
+        margin-top: 0;
+    }
+
+    .recipe-instructions li{
+        margin-bottom: 20px;
+    }
+
+    .cuisines-header{
+        border-top: 2px solid var(--text-grey);
+        border-bottom: 2px solid var(--text-grey);
+        text-align: center;
+        margin: 30px 5px 10px 5px;
+        text-transform: uppercase;
     }
 
 }
