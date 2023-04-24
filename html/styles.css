@@ -25,24 +25,12 @@ a{
 
 h1{
     font-family: 'Galada';
-    text-align: center;
     font-size: 40px;
-    height: 60px;
     letter-spacing: 2px;
-    text-transform: capitalize;
-    border-top: 3px solid var(--text-grey);
-    border-bottom: 3px solid var(--text-grey);
 }
 
 h2, h3, a, input, p, li{
     font-family: 'Gabriela';
-}
-
-#header-logo h1{
-    font-size: 32px;
-    height: auto;
-    letter-spacing: normal;
-    border:none;
 }
 
 #hamburger-tgl{
@@ -205,8 +193,21 @@ a.area.vn::before{background-position: center -315px;}
 #header-logo{
     display: block;
     text-align: center;
-    width: 300px;
+    width: 275px;
+    height: 142px;
     margin: auto;
+    background-color: red;
+    background: url("/images/comforts_almanac_logo.png");
+    background-size: auto 122px;
+    background-repeat: no-repeat;
+}
+
+#header-logo h1{
+    font-size: 32px;
+    height: auto;
+    letter-spacing: normal;
+    border:none;
+    margin-left: -9999px;
 }
 
 #search-form{
@@ -236,8 +237,8 @@ a.area.vn::before{background-position: center -315px;}
     width: 46px;
     background-color: var(--blue);
     background-image: url("/images/search_white.png");
-    background-size: 36px auto;
-    background-position: 0 2px;
+    background-size: 32px auto;
+    background-position: center 4px;
     background-repeat: no-repeat;
 }
 
@@ -336,6 +337,10 @@ a.area.vn::before{background-position: center -315px;}
     overflow: hidden;
     border-radius: 3px;
     cursor: pointer;
+    background-image: url("/images/animated_book.gif");
+    background-size: 80% auto;
+    background-position: center 20%;
+    background-repeat: no-repeat;
 }
 
 .itemLink h2{
@@ -345,6 +350,7 @@ a.area.vn::before{background-position: center -315px;}
 .itemLink img{
     width: 100%;
     height: auto;
+    color: var(--blue);
 }
 
 .recipe-container img{
@@ -418,10 +424,14 @@ a.area.vn::before{background-position: center -315px;}
 
     .recipe-container h1{
         grid-column: 1 / 7;
+        font-size: 40px;
+        letter-spacing: 2px;
         background-color: rgb(50, 106, 134);
         color: var(--text-light);
-        border: none;
-      }
+        text-transform: capitalize;
+        border-top: 3px solid var(--text-grey);
+        border-bottom: 3px solid var(--text-grey);
+        text-align: center;
     }
 
     .recipe-container .recipe-img{
