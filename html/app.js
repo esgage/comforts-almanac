@@ -110,7 +110,11 @@ const loadSearchResults = (urlPathQuery) => {
                     sResult.classList.add('itemLink');
                     sResult.href = '';
                     sResult.setAttribute('onclick', 'getRecipe(' + meal.idMeal + '); return false;');
-                    sResult.innerHTML = `<img src="${meal.strMealThumb}" alt="${meal.strMeal}" height="600" width="600"><h2>${meal.strMeal}</h2>`;
+                    if(i >= 10){
+                        sResult.innerHTML = `<img src="${meal.strMealThumb}" alt="${meal.strMeal}" height="600" width="600" loading="lazy"><h2>${meal.strMeal}</h2>`;
+                    } else {
+                        sResult.innerHTML = `<img src="${meal.strMealThumb}" alt="${meal.strMeal}" height="600" width="600"><h2>${meal.strMeal}</h2>`;
+                    }
                     searchResultsContainer.append(sResult);
                     i++;
                 }
@@ -200,14 +204,20 @@ const getArea = (areaId) => {
 const loadArea = (area) =>{
     const areaContainer = document.createElement('div');
     areaContainer.classList.add('area-container');
+    let i = 0;
     for(const meal of area.meals){
         const itemLink = document.createElement('div');
         itemLink.classList.add('itemLink');
-        itemLink.innerHTML = `<img src="${meal.strMealThumb}" alt="${meal.strMeal}" height="600" width="600"><h2>${meal.strMeal}</h2>`;
+        if(i >= 10){
+            itemLink.innerHTML = `<img src="${meal.strMealThumb}" alt="${meal.strMeal}" height="600" width="600" loading="lazy"><h2>${meal.strMeal}</h2>`;
+        } else {
+            itemLink.innerHTML = `<img src="${meal.strMealThumb}" alt="${meal.strMeal}" height="600" width="600"><h2>${meal.strMeal}</h2>`;
+        }
         itemLink.addEventListener('click', () => {
             getRecipe(meal.idMeal);
         });
         areaContainer.append(itemLink);
+        i++;
     }
     contentContainer.append(areaContainer);
 }
@@ -215,14 +225,20 @@ const loadArea = (area) =>{
 const loadCategory = (category) =>{
     const categoryContainer = document.createElement('div');
     categoryContainer.classList.add('category-container');
+    let i = 0;
     for(const meal of category.meals){
         const itemLink = document.createElement('div');
         itemLink.classList.add('itemLink');
-        itemLink.innerHTML = `<img src="${meal.strMealThumb}" alt="${meal.strMeal}" height="600" width="600"><h2>${meal.strMeal}</h2>`;
+        if(i >= 10){
+            itemLink.innerHTML = `<img src="${meal.strMealThumb}" alt="${meal.strMeal}" height="600" width="600" loading="lazy"><h2>${meal.strMeal}</h2>`;
+        } else {
+            itemLink.innerHTML = `<img src="${meal.strMealThumb}" alt="${meal.strMeal}" height="600" width="600"><h2>${meal.strMeal}</h2>`;
+        }
         itemLink.addEventListener('click', () => {
             getRecipe(meal.idMeal);
         });
         categoryContainer.append(itemLink);
+        i++;
     }
     contentContainer.append(categoryContainer);
 }
