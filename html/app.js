@@ -4,6 +4,7 @@ const autocompleteList = document.getElementById('autocomplete');
 const body = document.querySelector('body');
 let popStateFired = 0;
 let navToggled = 0;
+let acIndex = 0;
 
 const navToggleBtn = document.getElementById('hamburger-tgl');
 const navWrapper = document.getElementById('nav-wrapper');
@@ -59,20 +60,58 @@ search.addEventListener('input', debounce(() => {
             }
             else{
                 let i = 0;
+                autocompleteList.innerHTML = "";
+                acIndex = 0;
                 for(const meal of autocompleteResults.meals){
-                    if (i >= 10) return;
-                    const acLink = document.createElement('a');
-                    acLink.classList.add('acLink');
-                    acLink.href = '';
-                    acLink.setAttribute('onclick', 'getRecipe(' + meal.idMeal + '); return false;');
-                    acLink.textContent = meal.strMeal;
-                    autocompleteList.append(acLink);
-                    i++;
+                    if (i < 10){
+                        const acLink = document.createElement('a');
+                        acLink.classList.add('acLink');
+                        acLink.href = '';
+                        acLink.setAttribute('onclick', 'getRecipe(' + meal.idMeal + '); return false;');
+                        acLink.textContent = meal.strMeal;
+                        autocompleteList.append(acLink);
+                        i++;
+                    }
                 }
             }
         })
         .catch(err => console.log(err));
 }, 300));
+
+document.addEventListener("keydown", (event) => {
+    let acLinkLength = document.querySelectorAll('.acLink').length;
+    document.querySelectorAll('.acLink').forEach((item) => {
+        item.classList.remove('item-selected');
+    });
+    if(autocompleteList.style.display === 'block'){
+        const keyName = event.key;
+        if(keyName === "Escape"){
+            search.value = "";
+            hideAutoComplete(event);
+        }
+        else if(keyName === "ArrowUp" && acIndex > 1){
+            acIndex--;
+        }
+        else if(keyName === "ArrowDown" && acIndex < acLinkLength){
+            acIndex++;
+        }
+        let itemSelected = document.querySelector('.acLink:nth-child('+ acIndex +')');
+        if(itemSelected){
+            itemSelected.classList.add('item-selected');
+            let itemValue = itemSelected.innerText;
+            search.value = itemValue;
+        }
+    }
+});
+
+const hideAutoComplete = (event) => {
+    if(event.type === 'touchStart' || event.type === 'click' && event.target.matches('#search') || event.target.matches('#autocomplete a') || event.target.matches('#autocomplete')){
+        return;
+    }
+    autocompleteList.style.display = 'none';
+}
+document.addEventListener('touchstart', hideAutoComplete);
+document.addEventListener('click', hideAutoComplete);
 
 const loadSearchResults = (urlPathQuery) => {
     let query = urlPathQuery;
@@ -122,17 +161,6 @@ const loadSearchResults = (urlPathQuery) => {
         })
         .catch(err => console.log(err));
 }
-
-
-const hideAutoComplete = (event) => {
-    if(event.target.matches('#search') || event.target.matches('#autocomplete a') || event.target.matches('#autocomplete')){
-        console.log('match: - ' + event.target);
-        return;
-    }
-    autocompleteList.style.display = 'none';
-}
-document.addEventListener('touchstart', hideAutoComplete);
-document.addEventListener('click', hideAutoComplete);
 
 const getHomeContent = () => {
     clearPage();

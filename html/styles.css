@@ -266,7 +266,7 @@ a.area.vn::before{background-position: center -315px;}
     border-top: 1px solid #efece7;
 }
 
-#autocomplete a:hover{
+#autocomplete a:hover, #autocomplete .item-selected{
     background-color: #e9e4dd;
 }
 
