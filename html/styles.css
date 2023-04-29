@@ -356,26 +356,76 @@ a.area.vn::before{background-position: center -315px;}
     color: var(--blue);
 }
 
-.recipe-container img{
-    max-width: 100%;
-    height: auto;
-    border-radius: 3px;
-}
-
 .footer-container p{
     text-align: center;
     font-family: 'Galada';
     font-size: 60px;
-    color:rgb(185, 175, 165);
+    color:rgb(204, 195, 186);
+}
+
+.footer-container span{
+    display: block;
+    line-height: 80px;
 }
 
 /* Recipe page */
-.recipe-container{
-    display: grid;
-    grid-template-columns: 1fr;
+.recipe-container h1{
+    font-size: 28px;
+    letter-spacing: 2px;
+    background-color: var(--blue);
+    color: var(--text-light);
+    padding-top: 5px;
+    text-transform: capitalize;
+    text-align: center;
 }
 
-@media (min-width:480px){
+.recipe-container h3{
+    font-size: 22px;
+    letter-spacing: 2px;
+    background-color: var(--text-grey);
+    color: var(--text-light);
+    text-align: center;
+    margin-top: 0;
+    padding: 2px 0 2px 0;
+}
+
+.recipe-container img{
+    max-width: 100%;
+    height: auto;
+    border-radius: 3px;
+    display: block;
+    margin: auto;
+}
+
+.recipe-info{
+    padding:0 5px 0 5px;
+}
+
+.recipe-info ul{
+    padding-left: 0;
+}
+
+.recipe-info li{
+    margin: 0 0 15px 0;
+    border-bottom: 2px solid var(--text-grey);
+    list-style-type: none;
+}
+
+.recipe-instructions{
+    margin-top: 40px;
+    padding:0 5px 0 5px;
+}
+
+.recipe-instructions ol{
+    margin-top: 0;
+    padding-left: 15px;
+}
+
+.recipe-instructions li{
+    margin-bottom: 20px;
+}
+
+@media (min-width:600px){
 
     .tenRandom-container, .category-container, .area-container, .search-results-container{
         grid-template-columns: repeat(3, 1fr);
@@ -385,8 +435,37 @@ a.area.vn::before{background-position: center -315px;}
         display: none;
     }
 
-    .areas-container{
-        grid-template-columns:  1fr 1fr 1fr;
+    .footer-container span{
+        display: inline;
+    }
+
+}
+
+@media (min-width: 900px){ 
+
+    .recipe-container h1{
+        font-size: 40px;
+    }
+
+    .recipe-instructions{
+        column-count: 2;
+    }
+    
+    .recipe-instructions:nth-child(2){
+        background-color: pink;
+    }
+
+    .flex-container{
+        display: flex;
+    }
+
+    .recipe-container img{
+        margin:0;
+    }
+
+    .recipe-info{
+        flex-grow: 1;
+        margin-left: 20px;
     }
 
 }
@@ -402,78 +481,6 @@ a.area.vn::before{background-position: center -315px;}
 
     .categories-container{
         overflow: hidden;
-    }
-    
-    .areas-container{
-        grid-template-columns:  1fr 1fr 1fr 1fr;
-    }
-
-    .recipe-container{
-        grid-template-columns: repeat(6, 1fr);
-        column-gap:40px;
-    }
-
-    .recipe-container h1{
-        grid-column: 1 / 7;
-        font-size: 40px;
-        letter-spacing: 2px;
-        background-color: rgb(50, 106, 134);
-        color: var(--text-light);
-        text-transform: capitalize;
-        border-top: 3px solid var(--text-grey);
-        border-bottom: 3px solid var(--text-grey);
-        text-align: center;
-    }
-
-    .recipe-container .recipe-img{
-        grid-column: 1 /4;
-        grid-row: 2 / 5;
-    }
-
-    .recipe-classification{
-        grid-column: 4 / 7;
-        grid-row: 2 / 3;
-    }
-
-    .recipe-classification h2:first-child{
-        margin-top: 0;
-    }
-
-    .recipe-ingredients{
-        grid-column: 4 / 7;
-        grid-row: 3 / 5;
-    }
-
-    .recipe-ingredients ul{
-        padding-left: 0;
-    }
-
-    .recipe-ingredients li{
-        margin: 0 0 15px 0;
-        border-bottom: 2px solid var(--text-grey);
-        list-style-type: none;
-    }
-
-    .recipe-instructions{
-        grid-column: 1 / 7;
-        column-count: 2;
-        margin-top: 40px;
-    }
-
-    .recipe-instructions ol{
-        margin-top: 0;
-    }
-
-    .recipe-instructions li{
-        margin-bottom: 20px;
-    }
-
-    .cuisines-header{
-        border-top: 2px solid var(--text-grey);
-        border-bottom: 2px solid var(--text-grey);
-        text-align: center;
-        margin: 30px 5px 10px 5px;
-        text-transform: uppercase;
     }
 
 }

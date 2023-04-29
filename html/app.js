@@ -305,13 +305,21 @@ const loadRecipe = (recipe) => {
     recipeContainer.classList.add('recipe-container');
     recipeContainer.innerHTML = `
         <h1>${meal.strMeal}</h1>
-        <div class="recipe-img"><img src="${meal.strMealThumb}" alt="${meal.strMeal}" height="600" width="600"></div>
-        <div class="recipe-classification">
-            <h2>Category: <a href="" onClick='getCategory("${meal.strCategory}"); return false;'>${meal.strCategory}</a></h2>
-            <h2>Cuisine: <a href="" onClick='getArea("${meal.strArea}"); return false;'>${meal.strArea}</a></h2>
+        <div class="flex-container">
+            <img src="${meal.strMealThumb}" alt="${meal.strMeal}" height="600" width="600">
+            <div class="recipe-info">
+                <h2>Category: <a href="" onClick='getCategory("${meal.strCategory}"); return false;'>${meal.strCategory}</a></h2>
+                <h2>Cuisine: <a href="" onClick='getArea("${meal.strArea}"); return false;'>${meal.strArea}</a></h2>
+                <h3>Ingredients:</h3>
+                ${ingredients.outerHTML}
+            </div>
         </div>
-        <div class="recipe-ingredients">${ingredients.outerHTML}</div>
-        <div class="recipe-instructions"><ol><li>${formattedInstructions}</li></ol></div>
+        <div class="recipe-instructions">
+            <h3>Instructions:</h3>
+            <ol>
+                <li>${formattedInstructions}</li>
+            </ol>
+        </div>
     `;
 
     contentContainer.append(recipeContainer);
